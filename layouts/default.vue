@@ -29,7 +29,7 @@
 
 <style lang="scss">
 // Import Bulma's core
-@import "~bulma/sass/utilities/_all";
+@import '~bulma/sass/utilities/_all';
 
 // // Import a Google Font
 // @import url('https://fonts.googleapis.com/css?family=Cabin');
@@ -57,43 +57,43 @@ $body-background-color: $light;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
-  "white": (
+  'white': (
     $white,
     $black
   ),
-  "black": (
+  'black': (
     $black,
     $white
   ),
-  "light": (
+  'light': (
     $light,
     $light-invert
   ),
-  "dark": (
+  'dark': (
     $dark,
     $dark-invert
   ),
-  "primary": (
+  'primary': (
     $primary,
     $primary-invert
   ),
-  "info": (
+  'info': (
     $info,
     $info-invert
   ),
-  "success": (
+  'success': (
     $success,
     $success-invert
   ),
-  "warning": (
+  'warning': (
     $warning,
     $warning-invert
   ),
-  "danger": (
+  'danger': (
     $danger,
     $danger-invert
   ),
-  "twitter": (
+  'twitter': (
     $twitter,
     $twitter-invert
   )
@@ -105,11 +105,11 @@ $link-invert: $primary-invert;
 $link-focus-border: $primary;
 
 // Import Bulma and Buefy styles
-@import "~bulma";
-@import "~buefy/src/scss/buefy";
+@import '~bulma';
+@import '~buefy/src/scss/buefy';
 </style>
 
 
 <script>
-export default {};
+export default {}
 </script>
