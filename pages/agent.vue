@@ -80,7 +80,7 @@ export default {
     },
     waiting() {
       const wait = this.tickets.filter(function(x) {
-        return x.state == ''
+        return x.state == null
       })
       return wait
     },
