@@ -1,0 +1,37 @@
+{
+  "name": "Qsee",
+  "version": "1.0.0",
+  "description": "Kiosk, waiting area and agent screen for managing customers in offices",
+  "author": "Stuart Downie",
+  "private": true,
+  "scripts": {
+    "dev": "nuxt",
+    "build": "nuxt build",
+    "start": "nuxt start",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
+    "precommit": "npm run lint"
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.0.0",
+    "@nuxtjs/moment": "^1.1.0",
+    "cross-env": "^5.2.0",
+    "firebase": "^5.8.2",
+    "moment": "^2.24.0",
+    "nuxt": "^2.0.0",
+    "nuxt-buefy": "^0.2.1",
+    "vuefire": "^2.0.0-alpha.20"
+  },
+  "devDependencies": {
+    "babel-eslint": "^8.2.1",
+    "eslint": "^5.0.1",
+    "eslint-config-prettier": "^3.1.0",
+    "eslint-loader": "^2.0.0",
+    "eslint-plugin-prettier": "2.6.2",
+    "eslint-plugin-vue": "^4.0.0",
+    "node-sass": "^4.10.0",
+    "nodemon": "^1.11.0",
+    "prettier": "1.14.3",
+    "sass-loader": "^7.1.0"
+  }
+}
