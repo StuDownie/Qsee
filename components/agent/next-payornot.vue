@@ -5,8 +5,8 @@
       <b-tab-item label="Non-payments" icon="home">
         <span
           v-if="nextTicket.length"
-          v-for="tkt in nextTicket"
-          :key="tkt"
+          v-for="(tkt, index) in nextTicket"
+          :key="index"
           class="has-text-centered"
         >
           <h2 class="title is-4">Ticket {{tkt.id}}</h2>
@@ -24,8 +24,8 @@
       <b-tab-item label="Payments" icon="cash">
         <span
           v-if="nextPayment.length"
-          v-for="pay in nextPayment"
-          :key="pay"
+          v-for="(pay, index) in nextPayment"
+          :key="index"
           class="has-text-centered"
         >
           <h2 class="title is-4">Ticket {{pay.id}}</h2>
@@ -71,7 +71,10 @@ export default {
       fireDb
         .collection(this.today)
         .doc(ticket)
-        .set({ state: 'called', desk: this.desk }, { merge: true })
+        .set(
+          { state: 'called', desk: this.desk, timescalled: 1 },
+          { merge: true }
+        )
       return
     }
   }

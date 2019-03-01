@@ -101,7 +101,13 @@ export default {
       return
     },
     callAgain() {
-      return 'coming soon'
+      const ref = fireDb.collection(this.today).doc(`${this.withCustomer}`)
+      const callNum = ref.timescalled++
+      fireDb
+        .collection(this.today)
+        .doc(`${this.withCustomer}`)
+        .set({ timescalled: `${callNum}` }, { merge: true })
+      return
     }
   }
 }

@@ -18,8 +18,8 @@
 
     <div class="section columns">
       <div class="column is-one-third">
-        <div id="goToDesk" class="is-pulled-left">
-          <span v-for="tkt in called" :key="tkt">
+        <div class="is-pulled-left">
+          <span v-for="(tkt, index) in called" :key="index">
             <h1 class="title is-2">Ticket {{tkt.id}} go to {{tkt.desk}}</h1>
           </span>
         </div>
@@ -50,7 +50,7 @@ export default {
   },
   firestore() {
     return {
-      tickets: fireDb.collection(this.today).orderBy('id')
+      tickets: fireDb.collection(this.today).orderBy('id', 'desc')
     }
   },
   computed: {
