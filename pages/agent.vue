@@ -71,13 +71,16 @@ export default {
     withCustomer() {
       const t = this
       const active = this.tickets
-        .filter(function(x) {
-          return x.desk == t.desk && x.state == 'called'
-        })
-        .map(function(x) {
-          return x.id
-        })
+        .filter(x => x.desk == t.desk && x.state == 'called')
+        .map(x => x.id)
       return +active
+    },
+    timesCustomerCalled() {
+      const t = this
+      const times = this.tickets
+        .filter(x => x.desk == t.desk && x.state == 'called')
+        .map(x => x.timescalled)
+      return +times
     },
     waiting() {
       const wait = this.tickets.filter(function(x) {
@@ -101,12 +104,11 @@ export default {
       return
     },
     callAgain() {
-      const ref = fireDb.collection(this.today).doc(`${this.withCustomer}`)
-      const callNum = ref.timescalled++
+      const calling = this.timesCustomerCalled + 1
       fireDb
         .collection(this.today)
         .doc(`${this.withCustomer}`)
-        .set({ timescalled: `${callNum}` }, { merge: true })
+        .set({ timescalled: calling }, { merge: true })
       return
     }
   }

@@ -61,7 +61,7 @@ export default {
   },
   watch: {
     called: function(val) {
-      alert(JSON.stringify(val))
+      console.log(val)
     }
   },
   mounted() {
