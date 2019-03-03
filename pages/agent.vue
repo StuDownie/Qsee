@@ -25,7 +25,7 @@
           <div id="summaryBox">
             <br>
             <h3 v-if="waiting.length" class="title is-5 has-text-primary">Waiting customers</h3>
-            <span v-for="(ticket, id) in waiting" :key="id">
+            <span v-for="ticket in waiting" :key="ticket.id">
               <span v-if="ticket.state != 'called' && ticket.state != 'seen'">
                 {{ `${ticket.id} (${ticket.topic}) ${ticket.printed}` }}
                 <br>
@@ -33,7 +33,7 @@
             </span>
             <br>
             <h3 v-if="atDesks.length" class="title is-5 has-text-primary">At desks</h3>
-            <span v-for="(ticket, id) in atDesks" :key="id">
+            <span v-for="ticket in atDesks" :key="ticket.id">
               <span v-if="ticket.state == 'called' && ticket.state != 'seen'">
                 {{ `${ticket.id} (${ticket.topic}) ${ticket.printed}` }}
                 <br>
@@ -83,16 +83,10 @@ export default {
       return +times
     },
     waiting() {
-      const wait = this.tickets.filter(function(x) {
-        return x.state == null
-      })
-      return wait
+      return this.tickets.filter(x => x.state == null)
     },
     atDesks() {
-      const called = this.tickets.filter(function(x) {
-        return x.state == 'called'
-      })
-      return called
+      return this.tickets.filter(x => x.state == 'called')
     }
   },
   methods: {

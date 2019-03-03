@@ -5,8 +5,8 @@
       <b-tab-item label="Non-payments" icon="home">
         <span
           v-if="nextTicket.length"
-          v-for="(tkt, index) in nextTicket"
-          :key="index"
+          v-for="tkt in nextTicket"
+          :key="tkt.id"
           class="has-text-centered"
         >
           <h2 class="title is-4">Ticket {{tkt.id}}</h2>
@@ -24,8 +24,8 @@
       <b-tab-item label="Payments" icon="cash">
         <span
           v-if="nextPayment.length"
-          v-for="(pay, index) in nextPayment"
-          :key="index"
+          v-for="pay in nextPayment"
+          :key="pay.id"
           class="has-text-centered"
         >
           <h2 class="title is-4">Ticket {{pay.id}}</h2>
@@ -51,17 +51,17 @@ export default {
   computed: {
     nextTicket() {
       const tkt = this.tickets
-        .filter(function(x) {
-          return x.topic != 'Payment' && x.state != 'seen'
-        })
+        .filter(
+          x => x.topic != 'Payment' && x.state != 'seen' && x.state != 'called'
+        )
         .slice(0, 1)
       return tkt
     },
     nextPayment() {
       const tkt = this.tickets
-        .filter(function(x) {
-          return x.topic == 'Payment' && x.state != 'seen'
-        })
+        .filter(
+          x => x.topic == 'Payment' && x.state != 'seen' && x.state != 'called'
+        )
         .slice(0, 1)
       return tkt
     }
