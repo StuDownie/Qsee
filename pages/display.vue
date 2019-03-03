@@ -19,8 +19,8 @@
     <div class="section columns">
       <div class="column is-one-third">
         <div class="is-pulled-left">
-          <span v-for="(tkt, index) in called" :key="index">
-            <h1 class="title is-2">Ticket {{tkt.id}} go to {{tkt.desk}}</h1>
+          <span v-for="tkt in called" :key="tkt.id">
+            <called-ticket :ticket="tkt.id" :desk="tkt.desk" :called="tkt.timescalled"></called-ticket>
           </span>
         </div>
       </div>
@@ -39,8 +39,11 @@
 import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
+import CalledTicket from '@/components/display/called-ticket'
+
 export default {
   layout: 'display',
+  components: { CalledTicket },
   data() {
     return {
       tickets: [],
@@ -55,13 +58,7 @@ export default {
   },
   computed: {
     called() {
-      const wait = this.tickets.filter(x => x.state == 'called')
-      return wait
-    }
-  },
-  watch: {
-    called: function(val) {
-      console.log(val)
+      return this.tickets.filter(x => x.state == 'called')
     }
   },
   mounted() {
