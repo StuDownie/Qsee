@@ -5,13 +5,21 @@
     <!-- *************************** -->
     <div class="columns has-text-centered">
       <div class="column sameheight">
-        <stat-box title="Waiting" icon="mdi mdi-face mdi-24px" content="0"></stat-box>
+        <stat-box title="Waiting" icon="mdi mdi-face mdi-24px" :content="waiting.length"></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="At desks" icon="mdi mdi-comment-account-outline mdi-24px" content="0"></stat-box>
+        <stat-box
+          title="At desks"
+          icon="mdi mdi-comment-account-outline mdi-24px"
+          :content="atDesks.length"
+        ></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="Tickets" icon="mdi mdi-ticket-confirmation mdi-24px" content="0"></stat-box>
+        <stat-box
+          title="Tickets"
+          icon="mdi mdi-ticket-confirmation mdi-24px"
+          :content="tickets.length"
+        ></stat-box>
       </div>
       <div class="column sameheight">
         <stat-box title="Avg. wait" icon="mdi mdi-timer mdi-24px" content="00:00"></stat-box>
@@ -28,15 +36,11 @@
       <!-- left-side: active ticket details -->
       <!-- *************************** -->
       <div class="column">
-        <active-tickets
-          title="Waiting customers"
-          icon="mdi mdi-face mdi-24px"
-          content="no customers"
-        ></active-tickets>
+        <active-tickets title="Waiting customers" icon="mdi mdi-face mdi-24px" :content="waiting"></active-tickets>
         <active-tickets
           title="At desks"
           icon="mdi mdi-comment-account-outline mdi-24px"
-          content="no customers"
+          :content="atDesks"
         ></active-tickets>
       </div>
       <!-- *************************** -->
@@ -59,7 +63,7 @@
             <b-field grouped group-multiline>
               <div v-for="(value, key) in ticketsByDesk" :key="key" class="control">
                 <b-taglist attached>
-                  <b-tag type="is-dark">{{`Desk ${key}`}}</b-tag>
+                  <b-tag type="is-dark">{{key}}</b-tag>
                   <b-tag type="is-primary">{{value}}</b-tag>
                 </b-taglist>
               </div>
@@ -106,15 +110,24 @@
 </template>
 
 <script>
+import moment from 'moment'
+import { fireDb } from '~/plugins/firebase.js'
+
 import StatBox from '@/components/dashboard/stat-box'
 import ActiveTickets from '@/components/dashboard/active-tickets'
-import moment from 'moment'
 
 export default {
   components: { StatBox, ActiveTickets },
   data() {
     return {
-      defaultSortDirection: 'asc'
+      defaultSortDirection: 'asc',
+      tickets: [],
+      today: moment().format('D MMM YYYY')
+    }
+  },
+  firestore() {
+    return {
+      tickets: fireDb.collection(this.today).orderBy('id')
     }
   },
   methods: {
@@ -129,13 +142,20 @@ export default {
   },
   computed: {
     ticketsByDesk() {
-      return this.$store.state.tickets
+      return this.tickets
+        .filter(x => x.state == 'seen')
         .map(x => x.desk)
         .reduce((desks, desk) => {
           const count = desks[desk] || 0
           desks[desk] = count + 1
           return desks
         }, {})
+    },
+    waiting() {
+      return this.tickets.filter(x => x.state == null)
+    },
+    atDesks() {
+      return this.tickets.filter(x => x.state == 'called')
     }
   }
 }
