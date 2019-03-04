@@ -2,8 +2,14 @@
   <div id="cases">
     <div v-if="withCustomer > 0" class="section has-text-centered">
       <h1 class="title is-2">You have a customer</h1>
-      <button @click="callAgain" class="button is-danger is-large">Call customer again</button>
-      <button @click="newCustomer" class="button is-primary is-large">Take another customer</button>
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <button @click="callAgain" class="button is-danger is-large">Call customer again</button>
+        </div>
+        <div class="level-item has-text-centered">
+          <button @click="newCustomer" class="button is-primary is-large">Take another customer</button>
+        </div>
+      </nav>
     </div>
     <div v-if="withCustomer == 0" class="columns">
       <div class="column">
