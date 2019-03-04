@@ -1,19 +1,34 @@
 <template>
   <div>
-    <h1 class="title is-2">Ticket {{ticket}} go to {{desk}}</h1>
+    <h1 class="title is-2 spacing" :class="{active: isActive}">Ticket {{ticket}} go to {{desk}}</h1>
   </div>
 </template>
 
 <script>
 export default {
   props: ['ticket', 'desk', 'called'],
+  data() {
+    return {
+      isActive: false
+    }
+  },
   watch: {
     called: function() {
       this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
+      this.isActive = !this.isActive
+      const t = this
+      setTimeout(function() {
+        t.isActive = !t.isActive
+      }, 4000)
     }
   },
   mounted() {
     this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
+    this.isActive = !this.isActive
+    const t = this
+    setTimeout(function() {
+      t.isActive = !t.isActive
+    }, 4000)
   },
   methods: {
     speak(words) {
@@ -32,4 +47,11 @@ export default {
 </script>
 
 <style scoped>
+.active {
+  border-radius: 10px;
+  background-color: gold;
+}
+.spacing {
+  padding: 10px;
+}
 </style>
