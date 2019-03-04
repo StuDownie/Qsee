@@ -33,7 +33,7 @@
             <h3 v-if="waiting.length" class="title is-5 has-text-primary">Waiting customers</h3>
             <span v-for="ticket in waiting" :key="ticket.id">
               <span v-if="ticket.state != 'called' && ticket.state != 'seen'">
-                {{ `${ticket.id} (${ticket.topic}) ${ticket.printed}` }}
+                {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
                 <br>
               </span>
             </span>
@@ -41,7 +41,7 @@
             <h3 v-if="atDesks.length" class="title is-5 has-text-primary">At desks</h3>
             <span v-for="ticket in atDesks" :key="ticket.id">
               <span v-if="ticket.state == 'called' && ticket.state != 'seen'">
-                {{ `${ticket.id} (${ticket.topic}) ${ticket.printed}` }}
+                {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
                 <br>
               </span>
             </span>
@@ -81,6 +81,13 @@ export default {
         .map(x => x.id)
       return +active
     },
+    customerCalledAt() {
+      const t = this
+      const calledTime = this.tickets
+        .filter(x => x.desk == t.desk && x.state == 'called')
+        .map(x => x.seen)
+      return +calledTime
+    },
     timesCustomerCalled() {
       const t = this
       const times = this.tickets
@@ -100,7 +107,14 @@ export default {
       fireDb
         .collection(this.today)
         .doc(`${this.withCustomer}`)
-        .set({ state: 'seen' }, { merge: true })
+        .set(
+          {
+            state: 'seen',
+            completed: new Date().getTime(),
+            interaction: new Date().getTime() - this.customerCalledAt
+          },
+          { merge: true }
+        )
       return
     },
     callAgain() {
@@ -110,6 +124,9 @@ export default {
         .doc(`${this.withCustomer}`)
         .set({ timescalled: calling }, { merge: true })
       return
+    },
+    time(a) {
+      return moment(a).format('H:mm')
     }
   }
 }

@@ -71,15 +71,12 @@
           </section>
 
           <b-table
-            :data="$store.state.tickets"
+            :data="completedTickets"
             :default-sort-direction="defaultSortDirection"
             default-sort="id"
             striped
           >
-            <template
-              v-if="props.row.completed != '' && props.row.completed != null"
-              slot-scope="props"
-            >
+            <template slot-scope="props">
               <b-table-column field="id" label="ID" sortable numeric centered>{{ props.row.id }}</b-table-column>
               <b-table-column field="topic" label="Topic" sortable>{{ props.row.topic }}</b-table-column>
               <b-table-column
@@ -95,11 +92,11 @@
               <b-table-column field="wait" label="Wait" sortable numeric centered>
                 <span
                   class="tag"
-                  :class="[parseInt(props.row.wait) > 9 ? 'is-danger' : 'is-primary']"
-                >{{ props.row.wait }}</span>
+                  :class="[parseInt(props.row.wait) > (9*60000) ? 'is-danger' : 'is-primary']"
+                >{{ timeDiff(props.row.wait) }}</span>
               </b-table-column>
               <b-table-column field="interaction" label="Interaction" sortable numeric centered>
-                <span class="tag is-primary">{{ props.row.interaction }}</span>
+                <span class="tag is-primary">{{ timeDiff(props.row.interaction) }}</span>
               </b-table-column>
             </template>
           </b-table>
@@ -138,6 +135,11 @@ export default {
     },
     time(a) {
       return moment(a).format('H:mm')
+    },
+    timeDiff(ms) {
+      const mins = Math.floor(ms / 60000)
+      const secs = ((ms % 60000) / 1000).toFixed(0)
+      return mins + ':' + (secs < 10 ? '0' : '') + secs
     }
   },
   computed: {
@@ -150,6 +152,9 @@ export default {
           desks[desk] = count + 1
           return desks
         }, {})
+    },
+    completedTickets() {
+      return this.tickets.filter(x => x.state == 'seen')
     },
     waiting() {
       return this.tickets.filter(x => x.state == null)

@@ -9,13 +9,16 @@
     <hr style="margin: 0px 0px 3rem;">
 
     <div v-for="ticket in content" :key="ticket.id">
-      <strong>Ticket {{ticket.id}} ({{ticket.topic}} )</strong>
-      <em>{{ticket.printed}}</em>
+      <span class="title is-5">Ticket {{ticket.id}} ({{ticket.topic}})</span>
+      <em>{{time(ticket.printed)}}</em>
     </div>
+
+    <div v-if="!content.length">No customers</div>
   </div>
 </template>
 
 <script>
+import moment from 'moment'
 export default {
   props: {
     icon: {
@@ -29,6 +32,11 @@ export default {
     content: {
       type: String,
       default: ''
+    }
+  },
+  methods: {
+    time(a) {
+      return moment(a).format('H:mm')
     }
   }
 }

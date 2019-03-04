@@ -46,7 +46,7 @@ export default {
       const document = {
         id: `${newTicket}`,
         topic: clickedButton,
-        printed: moment().format('H:mm:ss')
+        printed: new Date().getTime()
       }
       ref.set(document)
       //  Print ticket
