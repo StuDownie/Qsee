@@ -22,20 +22,20 @@
         ></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="Avg. wait" icon="mdi mdi-timer mdi-24px" :content="msToTime(avWait)"></stat-box>
+        <stat-box title="Avg. wait" icon="mdi mdi-timer mdi-24px" :content="duration(avWait)"></stat-box>
       </div>
       <div class="column sameheight">
         <stat-box
           title="Longest wait"
           icon="mdi mdi-timer mdi-24px"
-          :content="msToTime(longestWait)"
+          :content="duration(longestWait)"
         ></stat-box>
       </div>
       <div class="column sameheight">
         <stat-box
           title="Avg. meeting"
           icon="mdi mdi-timelapse mdi-24px"
-          :content="msToTime(avInteraction)"
+          :content="duration(avInteraction)"
         ></stat-box>
       </div>
     </div>
@@ -59,12 +59,18 @@
           <section>
             <h2 class="title is-4">
               Today's tickets
-              <button class="button is-primary is-pulled-right">
+              <button
+                @click="exportModalOn = !exportModalOn"
+                class="button is-primary is-pulled-right"
+              >
                 <span class="icon">
                   <i class="mdi mdi-history mdi-24px"></i>
                 </span>
                 <span>History</span>
               </button>
+              <b-modal :active.sync="exportModalOn" has-modal-card>
+                <history-export></history-export>
+              </b-modal>
             </h2>
           </section>
           <section class="section">
@@ -79,7 +85,7 @@
           </section>
 
           <b-table
-            :data="completedTickets"
+            :data="todaysTickets"
             :default-sort-direction="defaultSortDirection"
             default-sort="id"
             striped
@@ -101,10 +107,10 @@
                 <span
                   class="tag"
                   :class="[parseInt(props.row.wait) > (9*60000) ? 'is-danger' : 'is-primary']"
-                >{{ msToTime(props.row.wait) }}</span>
+                >{{ duration(props.row.wait) }}</span>
               </b-table-column>
               <b-table-column field="interaction" label="Interaction" sortable numeric centered>
-                <span class="tag is-primary">{{ msToTime(props.row.interaction) }}</span>
+                <span class="tag is-primary">{{ duration(props.row.interaction) }}</span>
               </b-table-column>
             </template>
           </b-table>
@@ -120,13 +126,15 @@ import { fireDb } from '~/plugins/firebase.js'
 
 import StatBox from '@/components/dashboard/stat-box'
 import ActiveTickets from '@/components/dashboard/active-tickets'
+import HistoryExport from '@/components/dashboard/history-export'
 
 export default {
-  components: { StatBox, ActiveTickets },
+  components: { StatBox, ActiveTickets, HistoryExport },
   data() {
     return {
       defaultSortDirection: 'asc',
       tickets: [],
+      exportModalOn: false,
       today: moment().format('D MMM YYYY')
     }
   },
@@ -136,21 +144,45 @@ export default {
     }
   },
   methods: {
-    duration(time1, time2) {
-      const start = moment(time1)
-      const end = moment(time2)
-      return moment.duration(end.diff(start)).humanize()
-    },
     time(a) {
       return moment(a).format('H:mm')
     },
-    msToTime(ms) {
+    duration(ms) {
       const mins = Math.floor(ms / 60000)
       const secs = ((ms % 60000) / 1000).toFixed(0)
       return mins + ':' + (secs < 10 ? '0' : '') + secs
     }
   },
   computed: {
+    waiting() {
+      return this.tickets.filter(x => x.state == null)
+    },
+    atDesks() {
+      return this.tickets.filter(x => x.state == 'called')
+    },
+    avWait() {
+      const total = this.tickets
+        .filter(x => x.state == 'called' || x.state == 'seen')
+        .map(x => x.wait)
+        .reduce((acc, val) => acc + val, 1)
+      const divisor = this.tickets.length ? this.tickets.length : 1
+      return total / divisor
+    },
+    longestWait() {
+      return this.tickets
+        .filter(x => x.state == 'called' || x.state == 'seen')
+        .map(x => x.wait)
+        .reverse()
+        .slice(0, 1)
+    },
+    avInteraction() {
+      const total = this.tickets
+        .filter(x => x.state == 'seen')
+        .map(x => x.interaction)
+        .reduce((acc, val) => acc + val, 1)
+      const divisor = this.tickets.length ? this.tickets.length : 1
+      return total / divisor
+    },
     ticketsByDesk() {
       return this.tickets
         .filter(x => x.state == 'seen')
@@ -161,35 +193,8 @@ export default {
           return desks
         }, {})
     },
-    completedTickets() {
+    todaysTickets() {
       return this.tickets.filter(x => x.state == 'seen')
-    },
-    waiting() {
-      return this.tickets.filter(x => x.state == null)
-    },
-    atDesks() {
-      return this.tickets.filter(x => x.state == 'called')
-    },
-    longestWait() {
-      return this.tickets
-        .filter(x => x.state == 'called' || x.state == 'seen')
-        .map(x => x.wait)
-        .reverse()
-        .slice(0, 1)
-    },
-    avWait() {
-      const total = this.tickets
-        .filter(x => x.state == 'called' || x.state == 'seen')
-        .map(x => x.wait)
-        .reduce((acc, val) => acc + val, 100)
-      return total / this.tickets.length
-    },
-    avInteraction() {
-      const total = this.tickets
-        .filter(x => x.state == 'seen')
-        .map(x => x.interaction)
-        .reduce((acc, val) => acc + val, 100)
-      return total / this.tickets.length
     }
   }
 }
