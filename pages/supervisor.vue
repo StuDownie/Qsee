@@ -22,13 +22,21 @@
         ></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="Avg. wait" icon="mdi mdi-timer mdi-24px" content="00:00"></stat-box>
+        <stat-box title="Avg. wait" icon="mdi mdi-timer mdi-24px" :content="msToTime(avWait)"></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="Longest wait" icon="mdi mdi-timer mdi-24px" content="00:00"></stat-box>
+        <stat-box
+          title="Longest wait"
+          icon="mdi mdi-timer mdi-24px"
+          :content="msToTime(longestWait)"
+        ></stat-box>
       </div>
       <div class="column sameheight">
-        <stat-box title="Avg. interaction" icon="mdi mdi-timelapse mdi-24px" content="00:00"></stat-box>
+        <stat-box
+          title="Avg. meeting"
+          icon="mdi mdi-timelapse mdi-24px"
+          :content="msToTime(avInteraction)"
+        ></stat-box>
       </div>
     </div>
     <div class="columns">
@@ -93,10 +101,10 @@
                 <span
                   class="tag"
                   :class="[parseInt(props.row.wait) > (9*60000) ? 'is-danger' : 'is-primary']"
-                >{{ timeDiff(props.row.wait) }}</span>
+                >{{ msToTime(props.row.wait) }}</span>
               </b-table-column>
               <b-table-column field="interaction" label="Interaction" sortable numeric centered>
-                <span class="tag is-primary">{{ timeDiff(props.row.interaction) }}</span>
+                <span class="tag is-primary">{{ msToTime(props.row.interaction) }}</span>
               </b-table-column>
             </template>
           </b-table>
@@ -136,7 +144,7 @@ export default {
     time(a) {
       return moment(a).format('H:mm')
     },
-    timeDiff(ms) {
+    msToTime(ms) {
       const mins = Math.floor(ms / 60000)
       const secs = ((ms % 60000) / 1000).toFixed(0)
       return mins + ':' + (secs < 10 ? '0' : '') + secs
@@ -161,6 +169,27 @@ export default {
     },
     atDesks() {
       return this.tickets.filter(x => x.state == 'called')
+    },
+    longestWait() {
+      return this.tickets
+        .filter(x => x.state == 'called' || x.state == 'seen')
+        .map(x => x.wait)
+        .reverse()
+        .slice(0, 1)
+    },
+    avWait() {
+      const total = this.tickets
+        .filter(x => x.state == 'called' || x.state == 'seen')
+        .map(x => x.wait)
+        .reduce((acc, val) => acc + val, 100)
+      return total / this.tickets.length
+    },
+    avInteraction() {
+      const total = this.tickets
+        .filter(x => x.state == 'seen')
+        .map(x => x.interaction)
+        .reduce((acc, val) => acc + val, 100)
+      return total / this.tickets.length
     }
   }
 }
