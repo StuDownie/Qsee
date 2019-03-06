@@ -3,7 +3,7 @@
     <h1 class="title is-2 has-text-centered">How can we help you today?</h1>
     <nav class="level">
       <div
-        v-for="(button, index) in buttons"
+        v-for="(button, index) in settings.topics"
         :key="index"
         class="level-item has-text-centered widerbuttons"
       >
@@ -24,14 +24,15 @@ export default {
   layout: 'kiosk',
   data() {
     return {
-      tickets: [],
       today: moment().format('D MMM YYYY'),
-      buttons: ['Enquiry', 'Council Tax', 'Housing', 'Payment', 'Benefits']
+      tickets: [],
+      settings: []
     }
   },
   firestore() {
     return {
-      tickets: fireDb.collection(this.today).orderBy('id', 'desc')
+      tickets: fireDb.collection(this.today).orderBy('id', 'desc'),
+      settings: fireDb.collection('settings').doc('general')
     }
   },
   methods: {
