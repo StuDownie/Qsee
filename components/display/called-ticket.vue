@@ -5,11 +5,19 @@
 </template>
 
 <script>
+import { fireDb } from '~/plugins/firebase.js'
+
 export default {
   props: ['ticket', 'desk', 'called'],
   data() {
     return {
-      isActive: false
+      isActive: false,
+      settings: []
+    }
+  },
+  firestore() {
+    return {
+      settings: fireDb.collection('settings').doc('general')
     }
   },
   watch: {
@@ -34,7 +42,9 @@ export default {
     speak(words) {
       const speechMessage = new SpeechSynthesisUtterance()
       const voices = window.speechSynthesis.getVoices()
-      const chosenVoice = voices.filter(voice => voice.name == 'Moira')
+      const chosenVoice = voices.filter(
+        voice => voice.name == this.settings.chosenVoice
+      )
       if (chosenVoice.length === 1) {
         speechMessage.voice = chosenVoice[0]
       }
