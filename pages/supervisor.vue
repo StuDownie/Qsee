@@ -109,7 +109,7 @@
                   :class="[parseInt(props.row.wait) > (9*60000) ? 'is-danger' : 'is-primary']"
                 >{{ duration(props.row.wait) }}</span>
               </b-table-column>
-              <b-table-column field="interaction" label="Interaction" sortable numeric centered>
+              <b-table-column field="meeting" label="Meeting" sortable numeric centered>
                 <span class="tag is-primary">{{ duration(props.row.interaction) }}</span>
               </b-table-column>
             </template>
@@ -124,9 +124,9 @@
 import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
-import StatBox from '@/components/dashboard/stat-box'
-import ActiveTickets from '@/components/dashboard/active-tickets'
-import HistoryExport from '@/components/dashboard/history-export'
+import StatBox from '@/components/supervisor/stat-box'
+import ActiveTickets from '@/components/supervisor/active-tickets'
+import HistoryExport from '@/components/supervisor/history-export'
 
 export default {
   components: { StatBox, ActiveTickets, HistoryExport },
@@ -164,7 +164,7 @@ export default {
       const total = this.tickets
         .filter(x => x.state == 'called' || x.state == 'seen')
         .map(x => x.wait)
-        .reduce((acc, val) => acc + val, 1)
+        .reduce((acc, val) => acc + val, 0)
       const divisor = this.tickets.length ? this.tickets.length : 1
       return total / divisor
     },
@@ -172,14 +172,14 @@ export default {
       return this.tickets
         .filter(x => x.state == 'called' || x.state == 'seen')
         .map(x => x.wait)
-        .reverse()
+        .sort()
         .slice(0, 1)
     },
     avInteraction() {
       const total = this.tickets
         .filter(x => x.state == 'seen')
         .map(x => x.interaction)
-        .reduce((acc, val) => acc + val, 1)
+        .reduce((acc, val) => acc + val, 0)
       const divisor = this.tickets.length ? this.tickets.length : 1
       return total / divisor
     },
