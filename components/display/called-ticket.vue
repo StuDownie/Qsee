@@ -53,5 +53,6 @@ export default {
 }
 .spacing {
   padding: 10px;
+  margin-bottom: 10px;
 }
 </style>
