@@ -172,7 +172,7 @@ export default {
       return this.tickets
         .filter(x => x.state == 'called' || x.state == 'seen')
         .map(x => x.wait)
-        .sort()
+        .reverse()
         .slice(0, 1)
     },
     avInteraction() {
