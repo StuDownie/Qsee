@@ -43,7 +43,7 @@
             </div>
           </b-tab-item>
 
-          <b-tab-item label="Display screen" icon="monitor">
+          <b-tab-item label="Display" icon="monitor">
             <h2 class="title is-6">Change voice style</h2>
             <b-field>
               <b-select
