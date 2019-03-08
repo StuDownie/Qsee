@@ -83,9 +83,9 @@ export default {
       setTimeout(() => {
         this.downloadCSV({ filename: 'export.csv' })
         return this.$parent.close()
-      }, 600)
+      }, 1000)
     },
-    convertArrayOfObjectsToCSV(args) {
+    arrayToCSV(args) {
       var result, ctr, keys, columnDelimiter, lineDelimiter, data
       data = args.data || null
       if (data == null || !data.length) {
@@ -110,7 +110,7 @@ export default {
     },
     downloadCSV(args) {
       var data, filename, link
-      var csv = this.convertArrayOfObjectsToCSV({
+      var csv = this.arrayToCSV({
         data: this.history
       })
       if (csv == null) return

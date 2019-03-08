@@ -14,20 +14,7 @@
 
 <script>
 export default {
-  props: {
-    icon: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    content: {
-      type: Number,
-      default: 0
-    }
-  }
+  props: ['icon', 'title', 'content']
 }
 </script>
 

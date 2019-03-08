@@ -15,7 +15,7 @@
           <b-tab-item label="Kiosk" icon="ticket-confirmation">
             <b-field style="width:450px" label="Topics on kiosk">
               <b-taginput
-                type="is-dark"
+                type="is-primary"
                 v-model="topics"
                 ellipsis
                 icon="label"
