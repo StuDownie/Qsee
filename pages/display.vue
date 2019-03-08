@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="columns">
           <div class="column">
-            <h1 class="title is-1">Inverness Service Point</h1>
+            <h1 class="title is-1">{{settings.office}}</h1>
           </div>
           <div class="column">
             <div id="dateAndTimeDisplay">
@@ -47,13 +47,15 @@ export default {
   data() {
     return {
       tickets: [],
+      settings: [],
       today: moment().format('D MMM YYYY'),
       clock: moment().format('dddd D MMM h:mm a')
     }
   },
   firestore() {
     return {
-      tickets: fireDb.collection(this.today).orderBy('id', 'desc')
+      tickets: fireDb.collection(this.today).orderBy('id', 'desc'),
+      settings: fireDb.collection('settings').doc('general')
     }
   },
   computed: {

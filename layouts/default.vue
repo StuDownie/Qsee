@@ -4,7 +4,7 @@
       <div class="hero-body">
         <div class="container">
           <nuxt-link to="/">
-            <h1 class="title">Service Point queue manager</h1>
+            <h1 class="title">{{settings.office}}</h1>
           </nuxt-link>
           <h2 class="subtitle">Desk number</h2>
         </div>
@@ -111,5 +111,18 @@ $link-focus-border: $primary;
 
 
 <script>
-export default {}
+import { fireDb } from '~/plugins/firebase.js'
+
+export default {
+  data() {
+    return {
+      settings: []
+    }
+  },
+  firestore() {
+    return {
+      settings: fireDb.collection('settings').doc('general')
+    }
+  }
+}
 </script>
