@@ -13,7 +13,26 @@
     </div>
     <div v-if="withCustomer == 0" class="columns">
       <div class="column">
-        <next-payornot :tickets="tickets" :desk="desk" :today="today"></next-payornot>
+        <next-payornot
+          v-if="settings.takeCustomer == 1"
+          :tickets="tickets"
+          :desk="desk"
+          :today="today"
+        ></next-payornot>
+
+        <next-customer
+          v-if="settings.takeCustomer == 2"
+          :tickets="tickets"
+          :desk="desk"
+          :today="today"
+        ></next-customer>
+
+        <any-customer
+          v-if="settings.takeCustomer == 3"
+          :tickets="tickets"
+          :desk="desk"
+          :today="today"
+        ></any-customer>
       </div>
       <!-- *************************** -->
       <!-- queue summary -->
@@ -57,20 +76,24 @@ import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 import NextPayornot from '@/components/agent/next-payornot'
+import NextCustomer from '@/components/agent/next-customer'
+import AnyCustomer from '@/components/agent/any-customer'
 
 export default {
-  components: { NextPayornot },
+  components: { NextPayornot, NextCustomer, AnyCustomer },
   data() {
     return {
       activeTab: 0,
       tickets: [],
+      settings: [],
       desk: 'user',
       today: moment().format('D MMM YYYY')
     }
   },
   firestore() {
     return {
-      tickets: fireDb.collection(this.today).orderBy('id')
+      tickets: fireDb.collection(this.today).orderBy('id'),
+      settings: fireDb.collection('settings').doc('general')
     }
   },
   computed: {
