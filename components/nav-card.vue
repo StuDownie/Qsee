@@ -18,18 +18,9 @@
 <script>
 export default {
   props: {
-    icon: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    link: {
-      type: String,
-      default: ''
-    }
+    icon: String,
+    title: String,
+    link: String
   }
 }
 </script>
