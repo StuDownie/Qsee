@@ -55,10 +55,10 @@
                 expanded
               >
                 <option
-                  v-for="(voiceSelect, idx) in voiceTypes"
+                  v-for="(voiceSelect, idx) in voicesUK"
                   :key="idx"
-                  :value="voiceSelect"
-                >{{voiceSelect}}</option>
+                  :value="voiceSelect.name"
+                >{{voiceSelect.name}} ({{voiceSelect.lang}})</option>
               </b-select>
             </b-field>
           </b-tab-item>
@@ -86,6 +86,7 @@ export default {
       office: '',
       topics: [],
       takeCustomer: 1,
+      synth: window.speechSynthesis,
       chosenVoice: '',
       voiceTypes: []
     }
@@ -95,16 +96,18 @@ export default {
       settings: fireDb.collection('settings').doc('general')
     }
   },
+  computed: {
+    voicesUK() {
+      return this.voiceTypes.filter(x => x.lang.indexOf('en') >= 0)
+    }
+  },
   created() {
     // Build list of available voices for display screen
-    const voices = speechSynthesis.getVoices()
-    for (var i = 0; i < voices.length; i++) {
-      // Get English voices
-      if (voices[i].lang.indexOf('en') >= 0) {
-        this.voiceTypes.push(voices[i].name)
-      }
+    this.voiceTypes = this.synth.getVoices()
+    this.synth.onvoiceschanged = () => {
+      this.voiceTypes = this.synth.getVoices()
     }
-    // Replace all values from settings in Firebase
+    // Replace default values from settings in Firebase
     setTimeout(() => {
       this.office = this.settings.office
       this.takeCustomer = this.settings.takeCustomer
