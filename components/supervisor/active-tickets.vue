@@ -18,25 +18,18 @@
 </template>
 
 <script>
-import moment from 'moment'
 export default {
   props: {
-    icon: {
-      type: String,
-      default: ''
-    },
-    title: {
-      type: String,
-      default: ''
-    },
-    content: {
-      type: String,
-      default: ''
-    }
+    icon: String,
+    title: String,
+    content: Array
   },
   methods: {
     time(a) {
-      return moment(a).format('H:mm')
+      return new Date(a).toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: 'numeric'
+      })
     }
   }
 }

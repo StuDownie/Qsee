@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title is-2 has-text-centered">How can we help you today?</h1>
+    <h1 v-if="settings.topics" class="title is-2 has-text-centered">How can we help you today?</h1>
     <nav class="level">
       <div
         v-for="(button, index) in settings.topics"
@@ -17,14 +17,17 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 export default {
   layout: 'kiosk',
   data() {
     return {
-      today: moment().format('D MMM YYYY'),
+      today: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }),
       tickets: [],
       settings: []
     }

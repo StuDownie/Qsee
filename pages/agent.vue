@@ -72,7 +72,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 import NextPayornot from '@/components/agent/next-payornot'
@@ -87,7 +86,11 @@ export default {
       tickets: [],
       settings: [],
       desk: 'user',
-      today: moment().format('D MMM YYYY')
+      today: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      })
     }
   },
   firestore() {
@@ -149,7 +152,10 @@ export default {
       return
     },
     time(a) {
-      return moment(a).format('H:mm')
+      return new Date(a).toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: 'numeric'
+      })
     }
   }
 }

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 export default {
@@ -48,7 +47,10 @@ export default {
       return
     },
     time(a) {
-      return moment(a).format('H:mm')
+      return new Date(a).toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: 'numeric'
+      })
     }
   }
 }

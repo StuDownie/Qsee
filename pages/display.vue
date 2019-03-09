@@ -1,6 +1,6 @@
 <template>
   <div>
-    <section class="hero is-primary is-bold">
+    <section v-if="settings.office" class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="columns">
           <div class="column">
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 import CalledTicket from '@/components/display/called-ticket'
@@ -48,8 +47,22 @@ export default {
     return {
       tickets: [],
       settings: [],
-      today: moment().format('D MMM YYYY'),
-      clock: moment().format('dddd D MMM h:mm a')
+      today: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      }),
+      clock:
+        new Date().toLocaleDateString('en-GB', {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric'
+        }) +
+        ' ' +
+        new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
     }
   },
   firestore() {
@@ -66,7 +79,17 @@ export default {
   mounted() {
     const t = this
     setInterval(function() {
-      t.clock = moment().format('dddd D MMM h:mm a')
+      t.clock =
+        new Date().toLocaleDateString('en-GB', {
+          weekday: 'long',
+          month: 'short',
+          day: 'numeric'
+        }) +
+        ' ' +
+        new Date().toLocaleTimeString('en-US', {
+          hour: '2-digit',
+          minute: '2-digit'
+        })
     }, 1000)
   }
 }

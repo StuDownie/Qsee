@@ -109,7 +109,7 @@
                   :class="[parseInt(props.row.wait) > (9*60000) ? 'is-danger' : 'is-primary']"
                 >{{ duration(props.row.wait) }}</span>
               </b-table-column>
-              <b-table-column field="meeting" label="Meeting" sortable numeric centered>
+              <b-table-column field="interaction" label="Meeting" sortable numeric centered>
                 <span class="tag is-primary">{{ duration(props.row.interaction) }}</span>
               </b-table-column>
             </template>
@@ -121,7 +121,6 @@
 </template>
 
 <script>
-import moment from 'moment'
 import { fireDb } from '~/plugins/firebase.js'
 
 import StatBox from '@/components/supervisor/stat-box'
@@ -135,7 +134,11 @@ export default {
       defaultSortDirection: 'asc',
       tickets: [],
       exportModalOn: false,
-      today: moment().format('D MMM YYYY')
+      today: new Date().toLocaleDateString('en-GB', {
+        day: 'numeric',
+        month: 'short',
+        year: 'numeric'
+      })
     }
   },
   firestore() {
@@ -145,7 +148,10 @@ export default {
   },
   methods: {
     time(a) {
-      return moment(a).format('H:mm')
+      return new Date(a).toLocaleTimeString('en-GB', {
+        hour: 'numeric',
+        minute: 'numeric'
+      })
     },
     duration(ms) {
       const mins = Math.floor(ms / 60000)
@@ -172,7 +178,9 @@ export default {
       return this.tickets
         .filter(x => x.state == 'called' || x.state == 'seen')
         .map(x => x.wait)
-        .reverse()
+        .sort((a, b) => {
+          return b - a
+        })
         .slice(0, 1)
     },
     avInteraction() {
