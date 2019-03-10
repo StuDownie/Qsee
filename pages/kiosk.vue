@@ -2,6 +2,7 @@
   <div>
     <h1 v-if="settings.topics" class="title is-2 has-text-centered">{{settings.kioskGreeting}}</h1>
     <nav class="level">
+      {{JSON.stringify(tickets)}}
       <div
         v-for="(button, index) in settings.topics"
         :key="index"
@@ -48,7 +49,7 @@ export default {
       // Save new ticket in Firebase
       const ref = fireDb.collection(this.today).doc(`${newTicket}`)
       const document = {
-        id: `${newTicket}`,
+        id: newTicket,
         topic: clickedButton,
         printed: new Date().getTime()
       }
