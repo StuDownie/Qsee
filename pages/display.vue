@@ -20,7 +20,12 @@
       <div class="column is-one-third">
         <div class="is-pulled-left">
           <span v-for="tkt in called" :key="tkt.id">
-            <called-ticket :ticket="tkt.id" :desk="tkt.desk" :called="tkt.timescalled"></called-ticket>
+            <called-ticket
+              :ticket="tkt.id"
+              :desk="tkt.desk"
+              :called="tkt.timescalled"
+              :accent="settings.chosenVoice"
+            ></called-ticket>
           </span>
         </div>
       </div>

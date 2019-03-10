@@ -8,7 +8,7 @@
 import { fireDb } from '~/plugins/firebase.js'
 
 export default {
-  props: ['ticket', 'desk', 'called'],
+  props: ['ticket', 'desk', 'called', 'accent'],
   data() {
     return {
       isActive: false,
@@ -31,8 +31,8 @@ export default {
     }
   },
   mounted() {
-    this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
     this.isActive = !this.isActive
+    this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
     const t = this
     setTimeout(function() {
       t.isActive = !t.isActive
@@ -42,9 +42,7 @@ export default {
     speak(words) {
       const speechMessage = new SpeechSynthesisUtterance()
       const voices = window.speechSynthesis.getVoices()
-      const chosenVoice = voices.filter(
-        voice => voice.name == this.settings.chosenVoice
-      )
+      const chosenVoice = voices.filter(voice => voice.name == this.accent)
       if (chosenVoice.length === 1) {
         speechMessage.voice = chosenVoice[0]
       }
