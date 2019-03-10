@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 v-if="settings.topics" class="title is-2 has-text-centered">How can we help you today?</h1>
+    <h1 v-if="settings.topics" class="title is-2 has-text-centered">{{settings.kioskGreeting}}</h1>
     <nav class="level">
       <div
         v-for="(button, index) in settings.topics"

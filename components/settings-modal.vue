@@ -13,7 +13,11 @@
           </b-tab-item>
 
           <b-tab-item label="Kiosk" icon="ticket-confirmation">
-            <b-field style="width:450px" label="Topics on kiosk">
+            <b-field label="Greeting">
+              <b-input type="text" v-model="kioskGreeting" placeholder="Wording on kiosk"></b-input>
+            </b-field>
+
+            <b-field style="width:450px" label="Topics">
               <b-taginput
                 type="is-primary"
                 v-model="topics"
@@ -44,7 +48,7 @@
           </b-tab-item>
 
           <b-tab-item label="Display" icon="monitor">
-            <h2 class="title is-6">Change voice style</h2>
+            <h2 class="title is-6">Voice</h2>
             <b-field>
               <b-select
                 v-model="chosenVoice"
@@ -84,6 +88,7 @@ export default {
       activeTab: 0,
       settings: [],
       office: '',
+      kioskGreeting: '',
       topics: [],
       takeCustomer: 1,
       synth: window.speechSynthesis,
@@ -111,6 +116,7 @@ export default {
     setTimeout(() => {
       this.office = this.settings.office
       this.takeCustomer = this.settings.takeCustomer
+      this.kioskGreeting = this.settings.kioskGreeting
       this.topics = this.settings.topics
       this.chosenVoice = this.settings.chosenVoice
     }, 500)
@@ -120,6 +126,7 @@ export default {
       const ref = fireDb.collection('settings').doc('general')
       const document = {
         office: this.office,
+        kioskGreeting: this.kioskGreeting,
         topics: this.topics,
         takeCustomer: this.takeCustomer,
         chosenVoice: this.chosenVoice
