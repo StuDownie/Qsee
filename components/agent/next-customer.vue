@@ -28,7 +28,9 @@ export default {
   props: ['tickets', 'desk', 'today'],
   computed: {
     nextTicket() {
-      const tkt = this.tickets.slice(0, 1)
+      const tkt = this.tickets
+        .filter(x => x.state != 'seen' && x.state != 'called')
+        .slice(0, 1)
       return tkt
     }
   },
