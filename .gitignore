@@ -82,3 +82,5 @@ dist
 
 .DS_Store
 public
+.firebaserc
+firebase.json
