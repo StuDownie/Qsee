@@ -16,7 +16,7 @@
       </div>
     </section>
 
-    <div class="section columns">
+    <div class="section columns is-paddingless is-marginless">
       <div class="column is-one-third">
         <div class="is-pulled-left">
           <span v-for="tkt in called" :key="tkt.id">
@@ -29,12 +29,8 @@
           </span>
         </div>
       </div>
-      <div class="column">
-        <div id="slideshow" class="is-pulled-right">
-          <div>
-            <img src="#" alt=" " style="height:89%; width:100%">
-          </div>'
-        </div>
+      <div class="column is-paddingless is-marginless">
+        <img :src="adImage" alt=" " style="height:80vh; width:100%">
       </div>
     </div>
   </div>
@@ -52,6 +48,12 @@ export default {
     return {
       tickets: [],
       settings: [],
+      ads: [
+        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide01.JPG?alt=media&token=47d3f412-c2e3-4f2f-977a-0018e154be8e',
+        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide03.JPG?alt=media&token=cd2463c2-7b83-4c78-a8a3-c07c3aa96b25',
+        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide06.JPG?alt=media&token=ff47196b-e646-4144-855c-8d433dba7d5c'
+      ],
+      adImage: '',
       today: new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
@@ -83,6 +85,15 @@ export default {
   },
   mounted() {
     const t = this
+    var n = 1
+    this.adImage = this.ads[0]
+    setInterval(function() {
+      if (n < t.ads.length) {
+        t.adImage = t.ads[n]
+        n += 1
+      }
+      if (n == t.ads.length) n = 0
+    }, 5000)
     setInterval(function() {
       t.clock =
         new Date().toLocaleDateString('en-GB', {
