@@ -5,28 +5,34 @@
         <p class="modal-card-title">Download a report</p>
       </header>
       <section class="modal-card-body">
-        <b-tabs v-model="activeTab" type="is-toggle" expanded>
-          <b-tab-item label="Start date" icon="calendar">
-            <b-field>
-              <b-datepicker
-                v-model="start"
-                inline
-                :first-day-of-week="1"
-                placeholder="Click to select..."
-              ></b-datepicker>
-            </b-field>
-          </b-tab-item>
-          <b-tab-item label="End date" icon="calendar">
-            <b-field>
-              <b-datepicker
-                v-model="end"
-                inline
-                :first-day-of-week="1"
-                placeholder="Click to select..."
-              ></b-datepicker>
-            </b-field>
-          </b-tab-item>
-        </b-tabs>
+        <b-notification
+          class="is-paddingless is-marginless has-background-white"
+          ref="element"
+          :closable="false"
+        >
+          <b-tabs v-model="activeTab" type="is-toggle" expanded>
+            <b-tab-item label="Start date" icon="calendar">
+              <b-field>
+                <b-datepicker
+                  v-model="start"
+                  inline
+                  :first-day-of-week="1"
+                  placeholder="Click to select..."
+                ></b-datepicker>
+              </b-field>
+            </b-tab-item>
+            <b-tab-item label="End date" icon="calendar">
+              <b-field>
+                <b-datepicker
+                  v-model="end"
+                  inline
+                  :first-day-of-week="1"
+                  placeholder="Click to select..."
+                ></b-datepicker>
+              </b-field>
+            </b-tab-item>
+          </b-tabs>
+        </b-notification>
       </section>
       <footer class="modal-card-foot">
         <button class="button" type="button" @click="$parent.close()">Cancel</button>
@@ -80,10 +86,15 @@ export default {
             })
           })
       }
+      this.$loading.open({
+        container: this.$refs.element.$el
+      })
       setTimeout(() => {
         this.downloadCSV({ filename: 'export.csv' })
-        return this.$parent.close()
       }, 1000)
+      setTimeout(() => {
+        this.$parent.close()
+      }, 2000)
     },
     arrayToCSV(args) {
       var result, ctr, keys, columnDelimiter, lineDelimiter, data
