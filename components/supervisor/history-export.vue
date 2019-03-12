@@ -100,7 +100,7 @@ export default {
       var result, ctr, keys, columnDelimiter, lineDelimiter, data
       data = args.data || null
       if (data == null || !data.length) {
-        return null
+        return ' '
       }
       columnDelimiter = args.columnDelimiter || ','
       lineDelimiter = args.lineDelimiter || '\n'
