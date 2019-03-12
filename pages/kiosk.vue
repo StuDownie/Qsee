@@ -2,7 +2,6 @@
   <div>
     <h1 v-if="settings.topics" class="title is-2 has-text-centered">{{settings.kioskGreeting}}</h1>
     <nav class="level">
-      {{JSON.stringify(tickets)}}
       <div
         v-for="(button, index) in settings.topics"
         :key="index"
