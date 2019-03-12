@@ -80,7 +80,7 @@
 </template>
 
 <script>
-import { fireDb } from '~/plugins/firebase.js'
+import { fireDb, fireStorage } from '~/plugins/firebase.js'
 
 export default {
   data() {
@@ -93,7 +93,9 @@ export default {
       takeCustomer: 1,
       synth: window.speechSynthesis,
       chosenVoice: '',
-      voiceTypes: []
+      voiceTypes: [],
+      adverts: fireStorage.child('Slide03.JPG'),
+      picURL: ''
     }
   },
   firestore() {
@@ -107,6 +109,7 @@ export default {
     }
   },
   created() {
+    this.pics
     // Build list of available voices for display screen
     this.voiceTypes = this.synth.getVoices()
     this.synth.onvoiceschanged = () => {
