@@ -56,13 +56,12 @@
       <!-- *************************** -->
       <div class="column">
         <div class="box">
-          <section>
-            <h2 class="title is-4">
-              Today's tickets
-              <button
-                @click="exportModalOn = !exportModalOn"
-                class="button is-primary is-pulled-right"
-              >
+          <nav class="level">
+            <div class="level-left">
+              <h2 class="title is-4">Today's tickets</h2>
+            </div>
+            <div class="level-right">
+              <button @click="exportModalOn = !exportModalOn" class="button is-primary">
                 <span class="icon">
                   <i class="mdi mdi-history mdi-24px"></i>
                 </span>
@@ -71,9 +70,9 @@
               <b-modal :active.sync="exportModalOn" has-modal-card>
                 <history-export></history-export>
               </b-modal>
-            </h2>
-          </section>
-          <section class="section">
+            </div>
+          </nav>
+          <nav class="level">
             <b-field grouped group-multiline>
               <div v-for="(value, key) in ticketsByDesk" :key="key" class="control">
                 <b-taglist attached>
@@ -82,7 +81,7 @@
                 </b-taglist>
               </div>
             </b-field>
-          </section>
+          </nav>
 
           <b-table
             :data="todaysTickets"

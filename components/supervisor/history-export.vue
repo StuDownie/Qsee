@@ -1,53 +1,46 @@
 <template>
-  <form action>
-    <div class="modal-card" style="width: auto">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Download a report</p>
-      </header>
-      <section class="modal-card-body">
-        <b-notification
-          class="is-paddingless is-marginless has-background-white"
-          ref="element"
-          :closable="false"
-        >
-          <b-tabs v-model="activeTab" type="is-toggle" expanded>
-            <b-tab-item label="Start date" icon="calendar">
-              <b-field>
-                <b-datepicker
-                  v-model="start"
-                  inline
-                  :first-day-of-week="1"
-                  placeholder="Click to select..."
-                ></b-datepicker>
-              </b-field>
-            </b-tab-item>
-            <b-tab-item label="End date" icon="calendar">
-              <b-field>
-                <b-datepicker
-                  v-model="end"
-                  inline
-                  :first-day-of-week="1"
-                  placeholder="Click to select..."
-                ></b-datepicker>
-              </b-field>
-            </b-tab-item>
-          </b-tabs>
+  <div class="modal-card" style="width: auto">
+    <header class="modal-card-head">
+      <p class="modal-card-title">Download a report</p>
+    </header>
+
+    <section class="modal-card-body">
+      <b-tabs ref="loading" v-model="activeTab" type="is-toggle" mobile-native expanded>
+        <b-notification class="is-paddingless is-marginless has-background-white" :closable="true">
+          <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
         </b-notification>
-      </section>
-      <footer class="modal-card-foot">
-        <button class="button" type="button" @click="$parent.close()">Cancel</button>
-        <button
-          v-if="activeTab == 1"
-          @click.prevent="exportReport(start, end)"
-          class="button is-primary"
-        >
-          <b-icon icon="download"></b-icon>
-          <span>Download</span>
-        </button>
-      </footer>
-    </div>
-  </form>
+        <b-tab-item label="Start date" icon="calendar">
+          <b-datepicker
+            v-model="start"
+            inline
+            :first-day-of-week="1"
+            placeholder="Click to select..."
+          ></b-datepicker>
+        </b-tab-item>
+        <b-tab-item label="End date" icon="calendar">
+          <b-datepicker
+            v-model="end"
+            inline
+            :first-day-of-week="1"
+            placeholder="Click to select..."
+          ></b-datepicker>
+        </b-tab-item>
+      </b-tabs>
+    </section>
+    <footer class="modal-card-foot">
+      <button class="button" type="button" @click="$parent.close()">Cancel</button>
+      <button
+        v-if="activeTab == 1"
+        @click.prevent="exportReport(start, end)"
+        class="button is-primary"
+      >
+        <b-icon icon="download"></b-icon>
+        <span>Download</span>
+      </button>
+    </footer>
+  </div>
 </template>
+
 
 <script>
 import { fireDb } from '~/plugins/firebase.js'
@@ -87,7 +80,7 @@ export default {
           })
       }
       this.$loading.open({
-        container: this.$refs.element.$el
+        container: this.$refs.loading.$el
       })
       setTimeout(() => {
         this.downloadCSV({ filename: 'export.csv' })
