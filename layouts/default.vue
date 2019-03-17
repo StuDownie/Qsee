@@ -6,7 +6,7 @@
           <nuxt-link to="/">
             <h1 class="title">{{settings.office}}</h1>
           </nuxt-link>
-          <h2 class="subtitle">Desk number</h2>
+          <h2 class="subtitle">{{$store.state.desk}}</h2>
         </div>
       </div>
     </section>

@@ -1,9 +1,9 @@
 export const state = () => ({
-  counter: 0
+  desk: ''
 })
 
 export const mutations = {
-  increment(state) {
-    state.counter++
+  SET_DESK: (state, payload) => {
+    state.desk = payload
   }
 }

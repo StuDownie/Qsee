@@ -29,12 +29,12 @@
           </b-tab-item>
 
           <b-tab-item label="Agent" icon="comment-account-outline">
+            <b-field label="Number of agents">
+              <b-input type="text" v-model="agents" placeholder="8" style="width:100px"></b-input>
+            </b-field>
             <h2 class="title is-6">Set how agents take customers</h2>
             <div class="field">
-              <b-radio
-                v-model="takeCustomer"
-                native-value="1"
-              >Choose between next paying customer or next customer</b-radio>
+              <b-radio v-model="takeCustomer" native-value="1">Next "Payment" or next non-payment</b-radio>
             </div>
             <div class="field">
               <b-radio
@@ -90,6 +90,7 @@ export default {
       office: '',
       kioskGreeting: '',
       topics: [],
+      agents: 0,
       takeCustomer: 1,
       synth: window.speechSynthesis,
       chosenVoice: '',
@@ -119,6 +120,7 @@ export default {
     setTimeout(() => {
       this.office = this.settings.office
       this.takeCustomer = this.settings.takeCustomer
+      this.agents = this.settings.agents
       this.kioskGreeting = this.settings.kioskGreeting
       this.topics = this.settings.topics
       this.chosenVoice = this.settings.chosenVoice
@@ -131,7 +133,8 @@ export default {
         office: this.office,
         kioskGreeting: this.kioskGreeting,
         topics: this.topics,
-        takeCustomer: this.takeCustomer,
+        agents: +this.agents,
+        takeCustomer: +this.takeCustomer,
         chosenVoice: this.chosenVoice
       }
       ref.set(document)
