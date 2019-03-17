@@ -3,6 +3,7 @@ import VueFire from 'vuefire'
 import firebase from 'firebase/app'
 import 'firebase/firestore'
 import 'firebase/storage'
+import 'firebase/auth'
 
 Vue.use(VueFire)
 
@@ -19,5 +20,6 @@ if (!firebase.apps.length) {
 
 const fireDb = firebase.firestore()
 const fireStorage = firebase.storage().ref()
+const auth = firebase.auth()
 
-export { fireDb, fireStorage }
+export { fireDb, fireStorage, auth }
