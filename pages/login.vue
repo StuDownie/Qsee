@@ -1,13 +1,14 @@
 <template>
   <div class="columns is-mobile is-centered">
     <div class="box login">
-      <b-field label="Email" v-model="email">
-        <b-input maxlength="30"></b-input>
+      <h2 class="title is-3">Login</h2>
+      <b-field label="Email">
+        <b-input type="text" v-model="email" maxlength="30"></b-input>
       </b-field>
       <b-field label="Password">
         <b-input type="password" v-model="password" password-reveal></b-input>
       </b-field>
-      <button class="button is-primary">
+      <button @click="login" class="button is-primary">
         <span>Login</span>
         <span class="icon">
           <i class="mdi mdi-login"></i>
@@ -18,6 +19,8 @@
 </template>
 
 <script>
+import { auth } from '~/plugins/firebase.js'
+
 export default {
   data() {
     return {
@@ -27,7 +30,20 @@ export default {
   },
   methods: {
     login() {
-      return 'coming soon'
+      auth.signInWithEmailAndPassword(this.email, this.password).then(
+        () => {
+          this.$router.push('/agent')
+        },
+        err => {
+          this.$dialog.alert({
+            title: 'Oops!',
+            message: err.message,
+            type: 'is-danger',
+            hasIcon: true,
+            icon: 'alert-circle'
+          })
+        }
+      )
     }
   }
 }
