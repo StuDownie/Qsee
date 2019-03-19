@@ -22,6 +22,9 @@
         <p>
           <strong>Qsee v1.0</strong> by Stuart Downie.
         </p>
+        <p v-if="$store.state.user != ''">
+          <button @click="logout" class="button is-text">Logout</button>
+        </p>
       </div>
     </footer>
   </div>
@@ -111,9 +114,10 @@ $link-focus-border: $primary;
 
 
 <script>
-import { fireDb } from '~/plugins/firebase.js'
+import { fireDb, auth } from '~/plugins/firebase.js'
 
 export default {
+  middleware: 'router-auth',
   data() {
     return {
       settings: []
@@ -122,6 +126,25 @@ export default {
   firestore() {
     return {
       settings: fireDb.collection('settings').doc('general')
+    }
+  },
+  methods: {
+    logout() {
+      auth.signOut().then(
+        () => {
+          this.$store.commit('SET_USER', '')
+          this.$router.push('/')
+        },
+        err => {
+          this.$dialog.alert({
+            title: 'Oops!',
+            message: err.message,
+            type: 'is-danger',
+            hasIcon: true,
+            icon: 'alert-circle'
+          })
+        }
+      )
     }
   }
 }

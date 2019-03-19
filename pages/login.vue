@@ -1,19 +1,21 @@
 <template>
   <div class="columns is-mobile is-centered">
     <div class="box login">
-      <h2 class="title is-3">Login</h2>
-      <b-field label="Email">
-        <b-input type="text" v-model="email" maxlength="30"></b-input>
-      </b-field>
-      <b-field label="Password">
-        <b-input type="password" v-model="password" password-reveal></b-input>
-      </b-field>
-      <button @click="login" class="button is-primary">
-        <span>Login</span>
-        <span class="icon">
-          <i class="mdi mdi-login"></i>
-        </span>
-      </button>
+      <form v-on:submit.prevent>
+        <h2 class="title is-3">Login</h2>
+        <b-field label="Email">
+          <b-input type="text" v-model="email" maxlength="30"></b-input>
+        </b-field>
+        <b-field label="Password">
+          <b-input type="password" v-model="password" password-reveal></b-input>
+        </b-field>
+        <button @click="login" class="button is-primary">
+          <span>Login</span>
+          <span class="icon">
+            <i class="mdi mdi-login"></i>
+          </span>
+        </button>
+      </form>
     </div>
   </div>
 </template>
@@ -32,7 +34,8 @@ export default {
     login() {
       auth.signInWithEmailAndPassword(this.email, this.password).then(
         () => {
-          this.$router.push('/agent')
+          this.$store.commit('SET_USER', 'logged-in')
+          this.$router.push('/')
         },
         err => {
           this.$dialog.alert({

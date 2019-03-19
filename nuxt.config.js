@@ -30,6 +30,13 @@ module.exports = {
   css: [],
 
   /*
+  ** Route authorised users
+  */
+  router: {
+    middleware: 'router-auth'
+  },
+
+  /*
   ** Plugins to load before mounting the App
   */
   plugins: ['~/plugins/firebase.js'],
