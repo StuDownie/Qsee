@@ -45,6 +45,7 @@ import SettingsModal from '@/components/settings-modal'
 
 export default {
   name: 'HomePage',
+  middleware: 'router-auth',
   components: { NavCard, SettingsModal },
   data() {
     return {

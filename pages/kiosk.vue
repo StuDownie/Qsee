@@ -20,6 +20,7 @@
 import { fireDb } from '~/plugins/firebase.js'
 
 export default {
+  middleware: 'router-auth',
   layout: 'kiosk',
   data() {
     return {

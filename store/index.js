@@ -1,6 +1,7 @@
 export const state = () => ({
   desk: '',
-  user: ''
+  signingOut: 'false',
+  user: 'logged-out'
 })
 
 export const mutations = {
@@ -9,5 +10,8 @@ export const mutations = {
   },
   SET_USER: (state, payload) => {
     state.user = payload
+  },
+  LOGIN_STATE: (state, payload) => {
+    state.signingOut = payload
   }
 }

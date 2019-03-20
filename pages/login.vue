@@ -30,6 +30,9 @@ export default {
       password: ''
     }
   },
+  mounted() {
+    this.$store.commit('LOGIN_STATE', 'false')
+  },
   methods: {
     login() {
       auth.signInWithEmailAndPassword(this.email, this.password).then(

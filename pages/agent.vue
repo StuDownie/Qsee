@@ -87,6 +87,7 @@ import AnyCustomer from '@/components/agent/any-customer'
 import DeskChooser from '@/components/desk-chooser'
 
 export default {
+  middleware: 'router-auth',
   components: { NextPayornot, NextCustomer, AnyCustomer, DeskChooser },
   data() {
     return {

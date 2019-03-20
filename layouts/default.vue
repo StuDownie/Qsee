@@ -22,8 +22,8 @@
         <p>
           <strong>Qsee v1.0</strong> by Stuart Downie.
         </p>
-        <p v-if="$store.state.user != ''">
-          <button @click="logout" class="button is-text">Logout</button>
+        <p v-if="$store.state.user != 'logged-out'">
+          <button @click="logoutUser" class="button is-text">Logout</button>
         </p>
       </div>
     </footer>
@@ -117,7 +117,6 @@ $link-focus-border: $primary;
 import { fireDb, auth } from '~/plugins/firebase.js'
 
 export default {
-  middleware: 'router-auth',
   data() {
     return {
       settings: []
@@ -129,11 +128,12 @@ export default {
     }
   },
   methods: {
-    logout() {
+    logoutUser() {
       auth.signOut().then(
         () => {
-          this.$store.commit('SET_USER', '')
-          this.$router.push('/')
+          this.$store.commit('LOGIN_STATE', 'true')
+          this.$store.commit('SET_USER', 'logged-out')
+          this.$router.push('/login')
         },
         err => {
           this.$dialog.alert({
