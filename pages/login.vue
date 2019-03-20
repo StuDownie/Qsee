@@ -9,7 +9,7 @@
         <b-field label="Password">
           <b-input type="password" v-model="password" password-reveal></b-input>
         </b-field>
-        <button @click="login" class="button is-primary">
+        <button @click="login" class="button is-primary" :class="{'is-loading': loading}">
           <span>Login</span>
           <span class="icon">
             <i class="mdi mdi-login"></i>
@@ -27,7 +27,8 @@ export default {
   data() {
     return {
       email: '',
-      password: ''
+      password: '',
+      loading: false
     }
   },
   mounted() {
@@ -35,6 +36,7 @@ export default {
   },
   methods: {
     login() {
+      this.loading = !this.loading
       auth.signInWithEmailAndPassword(this.email, this.password).then(
         () => {
           this.$store.commit('SET_USER', 'logged-in')

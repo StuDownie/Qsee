@@ -23,7 +23,7 @@
           <strong>Qsee v1.0</strong> by Stuart Downie.
         </p>
         <p v-if="$store.state.user != 'logged-out'">
-          <button @click="logoutUser" class="button is-text">Logout</button>
+          <button @click="logoutUser" class="button">Logout</button>
         </p>
       </div>
     </footer>

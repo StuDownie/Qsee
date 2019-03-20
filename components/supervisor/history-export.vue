@@ -3,12 +3,9 @@
     <header class="modal-card-head">
       <p class="modal-card-title">Download a report</p>
     </header>
-
     <section class="modal-card-body">
       <b-tabs ref="loading" v-model="activeTab" type="is-toggle" mobile-native expanded>
-        <b-notification class="is-paddingless is-marginless has-background-white" :closable="true">
-          <b-loading :is-full-page="false" :active.sync="isLoading" :can-cancel="true"></b-loading>
-        </b-notification>
+        <b-loading :is-full-page="false" :can-cancel="true"></b-loading>
         <b-tab-item label="Start date" icon="calendar">
           <b-datepicker
             v-model="start"
