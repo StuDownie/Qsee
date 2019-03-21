@@ -37,6 +37,9 @@ export default {
   methods: {
     login() {
       this.loading = !this.loading
+      setTimeout(() => {
+        this.loading = !this.loading
+      }, 1000)
       auth.signInWithEmailAndPassword(this.email, this.password).then(
         () => {
           this.$store.commit('SET_USER', 'logged-in')
