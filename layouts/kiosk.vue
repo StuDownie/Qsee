@@ -9,7 +9,7 @@
 </template>
 
 <script>
-export default { middleware: 'router-auth' }
+export default {}
 </script>
 
 <style scoped>

@@ -56,7 +56,7 @@ export default {
       this.$store.state.user == 'logged-out' &&
       this.$store.state.signingOut == 'false'
     ) {
-      return this.$router.push('/login')
+      this.$router.push('/login')
     }
   }
 }
