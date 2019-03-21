@@ -45,11 +45,18 @@ import SettingsModal from '@/components/settings-modal'
 
 export default {
   name: 'HomePage',
-  middleware: 'router-auth',
   components: { NavCard, SettingsModal },
   data() {
     return {
       settingsModalOn: false
+    }
+  },
+  created() {
+    if (
+      this.$store.state.user == 'logged-out' &&
+      this.$store.state.signingOut == 'false'
+    ) {
+      return this.$router.push('/login')
     }
   }
 }

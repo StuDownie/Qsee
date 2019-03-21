@@ -87,7 +87,6 @@ import AnyCustomer from '@/components/agent/any-customer'
 import DeskChooser from '@/components/desk-chooser'
 
 export default {
-  middleware: 'router-auth',
   components: { NextPayornot, NextCustomer, AnyCustomer, DeskChooser },
   data() {
     return {
@@ -105,6 +104,14 @@ export default {
     return {
       tickets: fireDb.collection(this.today).orderBy('id'),
       settings: fireDb.collection('settings').doc('general')
+    }
+  },
+  created() {
+    if (
+      this.$store.state.user == 'logged-out' &&
+      this.$store.state.signingOut == 'false'
+    ) {
+      return this.$router.push('/login')
     }
   },
   mounted() {

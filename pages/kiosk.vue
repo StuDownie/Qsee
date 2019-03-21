@@ -20,7 +20,6 @@
 import { fireDb } from '~/plugins/firebase.js'
 
 export default {
-  middleware: 'router-auth',
   layout: 'kiosk',
   data() {
     return {
@@ -37,6 +36,14 @@ export default {
     return {
       tickets: fireDb.collection(this.today).orderBy('id', 'desc'),
       settings: fireDb.collection('settings').doc('general')
+    }
+  },
+  created() {
+    if (
+      this.$store.state.user == 'logged-out' &&
+      this.$store.state.signingOut == 'false'
+    ) {
+      return this.$router.push('/login')
     }
   },
   methods: {
