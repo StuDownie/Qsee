@@ -27,7 +27,7 @@ module.exports = {
   /*
   ** Global CSS
   */
-  css: [],
+  css: ['@/assets/css/main.scss'],
 
   /*
   ** Route authorised users
