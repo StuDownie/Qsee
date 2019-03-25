@@ -8,7 +8,9 @@
     <section class="hero is-primary gradient">
       <div class="hero-body">
         <div class="container">
-          <h1 class="title">{{settings.office}}</h1>
+          <nuxt-link to="/">
+            <h1 class="title">{{settings.office}}</h1>
+          </nuxt-link>
           <h2 class="subtitle">{{$store.state.desk}}</h2>
         </div>
       </div>
@@ -43,7 +45,7 @@
 }
 .gradient {
   background-color: $primary;
-  background-image: linear-gradient(#341386, $primary);
+  background-image: linear-gradient(darken($primary, 20%), $primary);
 }
 </style>
 
