@@ -1,11 +1,14 @@
 <template>
   <div>
-    <section class="hero is-primary">
+    <nav class="navbar" role="navigation" aria-label="main navigation">
+      <nuxt-link to="/">
+        <img class="logo" src="~/static/logo.png" alt=" ">
+      </nuxt-link>
+    </nav>
+    <section class="hero is-primary gradient">
       <div class="hero-body">
         <div class="container">
-          <nuxt-link to="/">
-            <h1 class="title">{{settings.office}}</h1>
-          </nuxt-link>
+          <h1 class="title">{{settings.office}}</h1>
           <h2 class="subtitle">{{$store.state.desk}}</h2>
         </div>
       </div>
@@ -31,6 +34,17 @@
 </template>
 
 <style lang="scss">
+@import '@/assets/css/main.scss';
+.logo {
+  position: absolute;
+  width: 120px;
+  left: 50%;
+  margin-left: -60px;
+}
+.gradient {
+  background-color: $primary;
+  background-image: linear-gradient(#341386, $primary);
+}
 </style>
 
 
