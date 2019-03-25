@@ -1,5 +1,5 @@
 <template>
-  <div id="cases">
+  <div v-if="$store.state.user != 'logged-out'" id="cases">
     <span v-if="desk == ''">
       <desk-chooser></desk-chooser>
     </span>

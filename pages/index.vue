@@ -14,7 +14,7 @@
     </b-modal>
     <br>
 
-    <div class="columns">
+    <div v-if="$store.state.user != 'logged-out'" class="columns">
       <div class="column">
         <nav-card
           title="Agent screen"
