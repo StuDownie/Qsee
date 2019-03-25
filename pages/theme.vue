@@ -21,19 +21,14 @@
               target="_blank"
               href="http://materialdesignicons.com"
             >Material icons</a>
-            <a 
-              class="button is-dark" 
-              target="_blank" 
-              href="https://fontawesome.com">Font Awesome</a>
+            <a class="button is-dark" target="_blank" href="https://fontawesome.com">Font Awesome</a>
           </div>
         </div>
       </div>
     </section>
 
     <!-- <div class="container"> -->
-    <section 
-      id="typography" 
-      class="section">
+    <section id="typography" class="section">
       <h1 class="title">Typography</h1>
       <hr>
       <div class="columns">
@@ -66,9 +61,7 @@
       </div>
     </section>
 
-    <section 
-      id="button" 
-      class="section">
+    <section id="button" class="section">
       <h1 class="title">Buttons</h1>
       <hr>
       <div class="columns">
@@ -185,9 +178,7 @@
       </div>
     </section>
 
-    <section 
-      id="content" 
-      class="section">
+    <section id="content" class="section">
       <h1 class="title">Sample content</h1>
       <hr>
       <div class="content">
@@ -235,47 +226,31 @@
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="No label" 
-                rounded/>
+              <b-input placeholder="No label" rounded/>
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="Disabled" 
-                disabled/>
+              <b-input placeholder="Disabled" disabled/>
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="Loading" 
-                loading/>
+              <b-input placeholder="Loading" loading/>
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="Search..." 
-                type="search" 
-                icon="magnify"/>
+              <b-input placeholder="Search..." type="search" icon="magnify"/>
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="Email" 
-                type="email" 
-                icon="email"/>
+              <b-input placeholder="Email" type="email" icon="email"/>
             </b-field>
 
             <b-field>
-              <b-input 
-                placeholder="Credit card" 
-                icon="credit-card"/>
+              <b-input placeholder="Credit card" icon="credit-card"/>
             </b-field>
 
             <b-field>
-              <b-select 
-                placeholder="Country" 
-                icon="earth">
+              <b-select placeholder="Country" icon="earth">
                 <option value="1">Option 1</option>
                 <option value="2">Option 2</option>
               </b-select>
@@ -284,20 +259,13 @@
 
           <div>
             <b-field label="Select a date">
-              <b-datepicker 
-                v-model="date" 
-                :first-day-of-week="1" 
-                placeholder="Click to select...">
+              <b-datepicker v-model="date" :first-day-of-week="1" placeholder="Click to select...">
                 <div class="buttons">
-                  <button 
-                    class="button is-primary" 
-                    @click="date = new Date()">
+                  <button class="button is-primary" @click="date = new Date()">
                     <b-icon icon="calendar-today"/>
                     <span>Today</span>
                   </button>
-                  <button 
-                    class="button is-danger" 
-                    @click="date = null">
+                  <button class="button is-danger" @click="date = null">
                     <b-icon icon="close"/>
                     <span>Clear</span>
                   </button>
@@ -308,46 +276,26 @@
         </div>
         <div class="column">
           <div class="block">
-            <b-radio 
-              v-model="radio" 
-              native-value="Flint">Flint</b-radio>
-            <b-radio 
-              v-model="radio" 
-              native-value="Silver">Silver</b-radio>
-            <b-radio 
-              v-model="radio" 
-              native-value="Jack">Jack</b-radio>
-            <b-radio 
-              v-model="radio" 
-              native-value="Vane" 
-              disabled>Vane</b-radio>
+            <b-radio v-model="radio" native-value="Flint">Flint</b-radio>
+            <b-radio v-model="radio" native-value="Silver">Silver</b-radio>
+            <b-radio v-model="radio" native-value="Jack">Jack</b-radio>
+            <b-radio v-model="radio" native-value="Vane" disabled>Vane</b-radio>
           </div>
           <div class="block">
             <b-field>
-              <b-radio-button 
-                v-model="radioButton" 
-                native-value="Nope" 
-                type="is-danger">
+              <b-radio-button v-model="radioButton" native-value="Nope" type="is-danger">
                 <b-icon icon="close"/>
                 <span>Nope</span>
               </b-radio-button>
 
-              <b-radio-button 
-                v-model="radioButton" 
-                native-value="Yep" 
-                type="is-success">
+              <b-radio-button v-model="radioButton" native-value="Yep" type="is-success">
                 <b-icon icon="check"/>
                 <span>Yep</span>
               </b-radio-button>
 
-              <b-radio-button 
-                v-model="radioButton" 
-                native-value="Default">Default</b-radio-button>
+              <b-radio-button v-model="radioButton" native-value="Default">Default</b-radio-button>
 
-              <b-radio-button 
-                v-model="radioButton" 
-                native-value="Disabled" 
-                disabled>Disabled</b-radio-button>
+              <b-radio-button v-model="radioButton" native-value="Disabled" disabled>Disabled</b-radio-button>
             </b-field>
           </div>
           <div class="block">
@@ -355,24 +303,16 @@
               <b-switch :value="true">Default</b-switch>
             </div>
             <div class="field">
-              <b-switch 
-                :value="true" 
-                type="is-info">Info</b-switch>
+              <b-switch :value="true" type="is-info">Info</b-switch>
             </div>
             <div class="field">
-              <b-switch 
-                :value="true" 
-                type="is-success">Success</b-switch>
+              <b-switch :value="true" type="is-success">Success</b-switch>
             </div>
             <div class="field">
-              <b-switch 
-                :value="true" 
-                type="is-danger">Danger</b-switch>
+              <b-switch :value="true" type="is-danger">Danger</b-switch>
             </div>
             <div class="field">
-              <b-switch 
-                :value="true" 
-                type="is-warning">Warning</b-switch>
+              <b-switch :value="true" type="is-warning">Warning</b-switch>
             </div>
           </div>
           <div class="block">
@@ -380,24 +320,16 @@
               <b-checkbox :value="true">Default</b-checkbox>
             </div>
             <div class="field">
-              <b-checkbox 
-                :value="true" 
-                type="is-info">Info</b-checkbox>
+              <b-checkbox :value="true" type="is-info">Info</b-checkbox>
             </div>
             <div class="field">
-              <b-checkbox 
-                :value="true" 
-                type="is-success">Success</b-checkbox>
+              <b-checkbox :value="true" type="is-success">Success</b-checkbox>
             </div>
             <div class="field">
-              <b-checkbox 
-                :value="true" 
-                type="is-danger">Danger</b-checkbox>
+              <b-checkbox :value="true" type="is-danger">Danger</b-checkbox>
             </div>
             <div class="field">
-              <b-checkbox 
-                :value="true" 
-                type="is-warning">Warning</b-checkbox>
+              <b-checkbox :value="true" type="is-warning">Warning</b-checkbox>
             </div>
           </div>
         </div>
@@ -410,6 +342,7 @@
 </template>
 <script>
 export default {
+  layout: 'kiosk',
   data() {
     return {
       radio: 'Jack',
