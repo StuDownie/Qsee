@@ -1,10 +1,10 @@
 <template>
-  <div class="about">
+  <div>
     <section class="hero is-primary">
       <div class="hero-body">
         <div>
-          <h1 class="title">Buefy styles</h1>
-          <h2 class="subtitle">Standard components</h2>
+          <h1 class="title">Theme</h1>
+          <h2 class="subtitle">Example style components based on -</h2>
           <div class="buttons">
             <a
               class="button is-dark"
@@ -222,11 +222,26 @@
         <div class="column box">
           <div class="block">
             <b-field>
-              <b-input placeholder="No label"/>
+              <b-datepicker v-model="date" :first-day-of-week="1" placeholder="Date picker">
+                <div class="buttons">
+                  <button class="button is-primary" @click="date = new Date()">
+                    <b-icon icon="calendar-today"/>
+                    <span>Today</span>
+                  </button>
+                  <button class="button is-danger" @click="date = null">
+                    <b-icon icon="close"/>
+                    <span>Clear</span>
+                  </button>
+                </div>
+              </b-datepicker>
             </b-field>
 
             <b-field>
-              <b-input placeholder="No label" rounded/>
+              <b-input placeholder="Field"/>
+            </b-field>
+
+            <b-field>
+              <b-input placeholder="Rounded" rounded/>
             </b-field>
 
             <b-field>
@@ -256,30 +271,13 @@
               </b-select>
             </b-field>
           </div>
-
-          <div>
-            <b-field label="Select a date">
-              <b-datepicker v-model="date" :first-day-of-week="1" placeholder="Click to select...">
-                <div class="buttons">
-                  <button class="button is-primary" @click="date = new Date()">
-                    <b-icon icon="calendar-today"/>
-                    <span>Today</span>
-                  </button>
-                  <button class="button is-danger" @click="date = null">
-                    <b-icon icon="close"/>
-                    <span>Clear</span>
-                  </button>
-                </div>
-              </b-datepicker>
-            </b-field>
-          </div>
         </div>
         <div class="column">
           <div class="block">
-            <b-radio v-model="radio" native-value="Flint">Flint</b-radio>
-            <b-radio v-model="radio" native-value="Silver">Silver</b-radio>
-            <b-radio v-model="radio" native-value="Jack">Jack</b-radio>
-            <b-radio v-model="radio" native-value="Vane" disabled>Vane</b-radio>
+            <b-radio v-model="radio" native-value="John">John</b-radio>
+            <b-radio v-model="radio" native-value="Paul">Paul</b-radio>
+            <b-radio v-model="radio" native-value="George">George</b-radio>
+            <b-radio v-model="radio" native-value="Ringo" disabled>Ringo</b-radio>
           </div>
           <div class="block">
             <b-field>
@@ -342,7 +340,7 @@
 </template>
 <script>
 export default {
-  layout: 'kiosk',
+  layout: 'display',
   data() {
     return {
       radio: 'Jack',
