@@ -1,17 +1,9 @@
 <template>
-  <div class="box" style="width:100%">
-    <h1
-      v-if="settings.takeCustomer == 1"
-      v-for="tkt in nextNonPay"
-      :key="tkt.id"
-      class="title is-1 spacing"
-    >Next ticket: {{tkt.id}}</h1>
-    <h1
-      v-if="settings.takeCustomer == 1"
-      v-for="tkt in nextPay"
-      :key="tkt.id"
-      class="title is-1 spacing"
-    >Next payment: {{tkt.id}}</h1>
+  <div v-if="next.length" class="box" style="width:100%">
+    <span v-if="settings.takeCustomer == 1">
+      <h1 v-for="tkt in nextNonPay" :key="tkt.id" class="title is-1 spacing">Next ticket: {{tkt.id}}</h1>
+      <h1 v-for="tkt in nextPay" :key="tkt.id" class="title is-1 spacing">Next payment: {{tkt.id}}</h1>
+    </span>
     <h1
       v-if="settings.takeCustomer != 1"
       v-for="tkt in next"

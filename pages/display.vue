@@ -16,18 +16,16 @@
     </section>
 
     <div class="section columns is-paddingless is-marginless">
-      <div class="column is-one-third">
-        <div class="is-pulled-left">
-          <next-customers></next-customers>
-          <span v-for="tkt in called" :key="tkt.id">
-            <called-ticket
-              :ticket="tkt.id"
-              :desk="tkt.desk"
-              :called="tkt.timescalled"
-              :accent="settings.chosenVoice"
-            ></called-ticket>
-          </span>
-        </div>
+      <div class="column is-one-third has-text-centered">
+        <next-customers></next-customers>
+        <span v-for="tkt in called" :key="tkt.id">
+          <called-ticket
+            :ticket="tkt.id"
+            :desk="tkt.desk"
+            :called="tkt.timescalled"
+            :accent="settings.chosenVoice"
+          ></called-ticket>
+        </span>
       </div>
       <div class="column is-paddingless is-marginless">
         <img :src="adImage" alt=" " style="height:80vh; width:100%">
