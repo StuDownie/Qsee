@@ -8,7 +8,6 @@
           </div>
           <div class="column">
             <div id="dateAndTimeDisplay">
-              <!-- <span id="logo"><img src="./style/logowhite.gif" style="height:80px" alt=" "></span> -->
               <h1 class="title is-1 has-text-right">{{clock}}</h1>
             </div>
           </div>
@@ -19,6 +18,7 @@
     <div class="section columns is-paddingless is-marginless">
       <div class="column is-one-third">
         <div class="is-pulled-left">
+          <next-customers></next-customers>
           <span v-for="tkt in called" :key="tkt.id">
             <called-ticket
               :ticket="tkt.id"
@@ -39,11 +39,12 @@
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
+import NextCustomers from '@/components/display/next-customers'
 import CalledTicket from '@/components/display/called-ticket'
 
 export default {
   layout: 'display',
-  components: { CalledTicket },
+  components: { CalledTicket, NextCustomers },
   data() {
     return {
       tickets: [],

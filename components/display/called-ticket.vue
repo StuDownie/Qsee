@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title is-2 spacing" :class="{active: isActive}">Ticket {{ticket}} go to {{desk}}</h1>
+    <h1 class="title is-1 spacing" :class="{active: isActive}">Ticket {{ticket}} - {{desk}}</h1>
   </div>
 </template>
 
@@ -22,20 +22,18 @@ export default {
   },
   watch: {
     called: function() {
-      this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
+      this.speak(`Ticket ${this.ticket} please go to ${this.desk}`)
       this.isActive = !this.isActive
-      const t = this
-      setTimeout(function() {
-        t.isActive = !t.isActive
+      setTimeout(() => {
+        this.isActive = !this.isActive
       }, 4000)
     }
   },
   mounted() {
     this.isActive = !this.isActive
-    this.speak(`Ticket ${this.ticket} go to ${this.desk}`)
-    const t = this
-    setTimeout(function() {
-      t.isActive = !t.isActive
+    this.speak(`Ticket ${this.ticket} please go to ${this.desk}`)
+    setTimeout(() => {
+      this.isActive = !this.isActive
     }, 4000)
   },
   methods: {
