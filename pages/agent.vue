@@ -17,7 +17,7 @@
       </div>
       <div v-if="withCustomer == 0" class="columns">
         <div class="column">
-          <button class="button is-pulled-right" @click="clearDesk">Change desk</button>
+          <button class="button is-pulled-right is-small" @click="clearDesk">Change desk</button>
 
           <next-payornot
             v-if="settings.takeCustomer == 1"
