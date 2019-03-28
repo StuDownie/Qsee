@@ -65,6 +65,15 @@
                 >{{voiceSelect.name}} ({{voiceSelect.lang}})</option>
               </b-select>
             </b-field>
+            <br>
+            <nuxt-link to="/slideshow">
+              <button class="button is-primary">
+                <span class="icon">
+                  <i class="mdi mdi-file-image mdi-24px"></i>
+                </span>
+                <span>Update slideshow images</span>
+              </button>
+            </nuxt-link>
           </b-tab-item>
         </b-tabs>
       </section>
@@ -80,7 +89,7 @@
 </template>
 
 <script>
-import { fireDb, fireStorage } from '~/plugins/firebase.js'
+import { fireDb } from '~/plugins/firebase.js'
 
 export default {
   data() {
@@ -95,7 +104,6 @@ export default {
       synth: window.speechSynthesis,
       chosenVoice: '',
       voiceTypes: [],
-      adverts: fireStorage.child('Slide03.JPG'),
       picURL: ''
     }
   },

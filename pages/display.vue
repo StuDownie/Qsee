@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-cloak>
     <section v-if="settings.office" class="hero is-primary is-bold">
       <div class="hero-body">
         <div class="columns">
@@ -28,7 +28,17 @@
         </span>
       </div>
       <div class="column is-paddingless is-marginless">
-        <img :src="adImage" alt=" " style="height:80vh; width:100%">
+        <img
+          v-show="adImage == ad.name"
+          v-for="(ad, idx) in ads"
+          :key="idx"
+          :src="ad.link"
+          :alt="ad.name"
+          style="height:80vh; width:100%"
+        >
+        <div class="columns is-centered" style="z-index:-1; padding-top:15rem">
+          <p class="title is-2">Looking for images...</p>
+        </div>
       </div>
     </div>
   </div>
@@ -45,13 +55,10 @@ export default {
   components: { CalledTicket, NextCustomers },
   data() {
     return {
+      isLoading: true,
       tickets: [],
       settings: [],
-      ads: [
-        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide01.JPG?alt=media&token=47d3f412-c2e3-4f2f-977a-0018e154be8e',
-        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide03.JPG?alt=media&token=cd2463c2-7b83-4c78-a8a3-c07c3aa96b25',
-        'https://firebasestorage.googleapis.com/v0/b/waiting-room-c9c18.appspot.com/o/Slide06.JPG?alt=media&token=ff47196b-e646-4144-855c-8d433dba7d5c'
-      ],
+      ads: [],
       adImage: '',
       today: new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
@@ -74,7 +81,8 @@ export default {
   firestore() {
     return {
       tickets: fireDb.collection(this.today).orderBy('id', 'desc'),
-      settings: fireDb.collection('settings').doc('general')
+      settings: fireDb.collection('settings').doc('general'),
+      ads: fireDb.collection('slideshow')
     }
   },
   computed: {
@@ -88,7 +96,7 @@ export default {
     this.adImage = this.ads[0]
     setInterval(function() {
       if (n < t.ads.length) {
-        t.adImage = t.ads[n]
+        t.adImage = t.ads[n].name
         n += 1
       }
       if (n == t.ads.length) n = 0
