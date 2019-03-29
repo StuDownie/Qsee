@@ -1,45 +1,51 @@
 <template>
-  <div>
-    <section class="section">
-      <nuxt-link to="/">
-        <button class="button is-rounded is-pulled-right">
-          <span class="icon">
-            <i class="mdi mdi-check mdi-24px"></i>
-          </span>
-          <span>Done</span>
-        </button>
-      </nuxt-link>
-
-      <progress value="0" max="100" id="uploader"></progress>
-      <br>
-      <div class="file">
-        <label class="file-label">
-          <input
-            class="file-input"
-            accept="image/*"
-            type="file"
-            value="upload"
-            @change="upload(file, $event)"
-          >
-          <span class="file-cta">
-            <span class="file-icon">
-              <i class="mdi mdi-upload mdi-24px"></i>
+  <section class="hero is-fullheight has-background-white">
+    <div class="columns is-centered">
+      <section class="section gallerywidth">
+        <progress v-show="progress" value="0" max="100" id="uploader"></progress>
+        <br>
+        <div class="file">
+          <label class="file-label">
+            <input
+              class="file-input"
+              accept="image/*"
+              type="file"
+              value="upload"
+              @change="upload(file, $event)"
+            >
+            <span class="file-cta">
+              <span class="file-icon">
+                <i class="mdi mdi-upload mdi-24px"></i>
+              </span>
+              <span class="file-label">Upload a file…</span>
             </span>
-            <span class="file-label">Upload a file…</span>
-          </span>
-        </label>
-      </div>
-      <br>
-      <br>
-      <div class="box" style="display:flex; width:100%">
-        <div v-for="(pic, idx) in pics" :key="idx">
-          <img :src="pic.link" style="width:150px" alt=" ">
-          <br>
-          <button @click="deletePic(pic.name)" class="button is-small is-danger">Delete</button>
+          </label>
         </div>
-      </div>
-    </section>
-  </div>
+        <br>
+        <br>
+        <div class="box is-clearfix has-background-light">
+          <div style="display:inline-block; width:100%">
+            <nuxt-link to="/">
+              <button class="button is-small is-pulled-right">
+                <span>Done</span>
+                <span class="icon">
+                  <i class="mdi mdi-check"></i>
+                </span>
+              </button>
+            </nuxt-link>
+          </div>
+          <div v-for="(pic, idx) in pics" :key="idx" class="responsive">
+            <div class="gallery card">
+              <img :src="pic.link" :alt="pic.name">
+              <button @click="deletePic(pic.name)" class="button is-small is-danger">
+                <span>Delete</span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </section>
 </template>
 
 <script>
@@ -49,7 +55,8 @@ export default {
   layout: 'display',
   data() {
     return {
-      pics: []
+      pics: [],
+      progress: false
     }
   },
   firestore() {
@@ -64,9 +71,11 @@ export default {
       let getFile = e.target.files[0]
       let storageRef = fireStorage.ref(getFile.name)
       let task = storageRef.put(getFile)
+      const t = this
       task.on(
         'state_changed',
         function progress(snapshot) {
+          t.progress = true
           let percentage =
             (snapshot.bytesTransferred / snapshot.totalBytes) * 100
           uploader.value = percentage
@@ -83,6 +92,7 @@ export default {
             }
             ref.set(document)
             uploader.value = 0
+            t.progress = false
           })
         }
       )
@@ -99,4 +109,34 @@ export default {
 </script>
 
 <style scoped>
+.gallerywidth {
+  width: 40rem;
+}
+.gallery {
+  padding: 5px;
+}
+div.gallery img {
+  width: 100%;
+  height: auto;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+.responsive {
+  padding: 5px;
+  float: left;
+  width: 23%;
+  margin: 5px;
+}
+
+@media only screen and (max-width: 800px) {
+  .gallerywidth {
+    width: auto;
+  }
+  .responsive {
+    width: 100%;
+  }
+}
 </style>
