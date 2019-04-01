@@ -26,11 +26,11 @@
         <div class="box is-clearfix has-background-light">
           <div style="display:inline-block; width:100%">
             <nuxt-link to="/">
-              <button class="button is-small is-pulled-right">
-                <span>Done</span>
+              <button class="button is-success is-pulled-right">
                 <span class="icon">
                   <i class="mdi mdi-check"></i>
                 </span>
+                <span>Done</span>
               </button>
             </nuxt-link>
           </div>
