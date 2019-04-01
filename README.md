@@ -1,6 +1,6 @@
 <p align="center">
 <br>
-<img src="https://imgur.com/ZLkbsl4.png"  />
+<img src="https://imgur.com/EddSJSr.png"  />
 <br>
 </p>
 
@@ -8,7 +8,7 @@
 
 Realtime queue management system for busy offices - includes customer kiosk, agent screen and waiting room display using web speech API
 
-Static Generated Site built with Nuxt.js and Firebase
+Static Site built with Nuxt.js and Firebase
 
 **[DEMO](https://waiting-room-c9c18.firebaseapp.com)**
 
