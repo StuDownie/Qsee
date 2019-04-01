@@ -27,18 +27,16 @@
           ></called-ticket>
         </span>
       </div>
-      <div class="column is-paddingless is-marginless">
+      <div class="column is-paddingless is-marginless secret">
         <img
           v-show="adImage == ad.name"
           v-for="(ad, idx) in ads"
           :key="idx"
           :src="ad.link"
           :alt="ad.name"
-          style="height:80vh; width:100%"
+          style="height:83vh; width:100%"
         >
-        <div class="columns is-centered" style="z-index:-1; padding-top:15rem">
-          <p class="title is-2">Looking for images...</p>
-        </div>
+        <p class="title is-3 has-text-grey-dark">Looking for images...</p>
       </div>
     </div>
   </div>
@@ -119,4 +117,18 @@ export default {
 </script>
 
 <style scoped>
+.secret {
+  position: relative;
+}
+.secret p {
+  z-index: -1;
+  position: absolute;
+  top: 30vh;
+  left: 50vh;
+}
+.secret img {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 </style>
