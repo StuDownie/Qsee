@@ -12,7 +12,7 @@ Static Site built with Nuxt.js and Firebase
 
 <p align="center">
   <img src="https://media.giphy.com/media/7J26pROewrT851tbqa/giphy.gif" />
- </p>
+</p>
 
 ## Install
 
@@ -44,16 +44,8 @@ Connect Firebase Tools to your project
 $ firebase login
 
 
-
-
-
-# cd into Qsee directory if you haven't already, Run this command
-
-
-
+# cd into Qsee directory if you haven't already, then run this command
 # and set your home directory to be called 'dist'
-
-
 
 $ firebase init
 ```
@@ -62,19 +54,9 @@ $ firebase init
 
 ```bash
 # build static site
-
-
-
 npm run generate
 
-
-
-
-
 # Deploy to Firebase
-
-
-
 firebase deploy
 ```
 
