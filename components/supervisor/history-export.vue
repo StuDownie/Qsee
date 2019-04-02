@@ -41,7 +41,6 @@
 
 <script>
 import { fireDb } from '~/plugins/firebase.js'
-import moment from 'moment'
 
 export default {
   props: ['email', 'password'],
@@ -61,10 +60,16 @@ export default {
   methods: {
     exportReport(startDate, endDate) {
       const dates = []
-      const currDate = moment(startDate).startOf('day')
-      const lastDate = moment(endDate).startOf('day')
-      while (currDate.add(1, 'days').diff(lastDate) < 0) {
-        dates.push(currDate.clone().format('D MMM YYYY'))
+      const day = -1000 * 60 * 60 * 24
+      let counter = startDate
+      while (counter <= endDate) {
+        let fireDate = new Date(counter).toLocaleDateString('en-GB', {
+          day: 'numeric',
+          month: 'short',
+          year: 'numeric'
+        })
+        dates.push(fireDate)
+        counter = counter - day
       }
       for (var i = 0; i < dates.length; i++) {
         fireDb
