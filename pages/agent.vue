@@ -6,6 +6,7 @@
     <span v-else>
       <div v-if="withCustomer > 0" class="section has-text-centered">
         <h1 class="title is-2">You have a customer</h1>
+        <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>
         <nav class="level">
           <div class="level-item has-text-centered">
             <button @click="callAgain" class="button is-danger is-large">Call customer again</button>
@@ -127,6 +128,13 @@ export default {
         .filter(x => x.desk == t.desk && x.state == 'called')
         .map(x => x.id)
       return +active
+    },
+    withCustomerTopic() {
+      const t = this
+      const topic = this.atDesks
+        .filter(x => x.id == t.withCustomer)
+        .map(x => x.topic)
+      return topic[0]
     },
     customerCalledAt() {
       const t = this
