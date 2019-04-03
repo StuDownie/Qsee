@@ -40,6 +40,8 @@
 </template>
 
 <script>
+import { fireDb } from '~/plugins/firebase.js'
+
 import NavCard from '@/components/nav-card'
 import SettingsModal from '@/components/settings-modal'
 
@@ -48,7 +50,13 @@ export default {
   components: { NavCard, SettingsModal },
   data() {
     return {
-      settingsModalOn: false
+      settingsModalOn: false,
+      settings: []
+    }
+  },
+  firestore() {
+    return {
+      settings: fireDb.collection('settings').doc('general')
     }
   },
   created() {
@@ -58,6 +66,13 @@ export default {
     ) {
       this.$router.push('/login')
     }
+  },
+  mounted() {
+    setTimeout(() => {
+      if (this.settings.office == null) {
+        this.settingsModalOn = true
+      }
+    }, 500)
   }
 }
 </script>

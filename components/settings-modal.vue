@@ -1,8 +1,12 @@
 <template>
   <form action>
     <div class="modal-card" style="width: auto">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Settings</p>
+      <header class="modal-card-head" :class="{'has-background-danger' : settings.office == null}">
+        <p
+          v-if="settings.office == null"
+          class="modal-card-title has-text-white"
+        >Set up each tab before using this app</p>
+        <p v-else class="modal-card-title">Settings</p>
       </header>
       <section class="modal-card-body">
         <b-tabs v-model="activeTab" type="is-boxed">
@@ -30,7 +34,7 @@
 
           <b-tab-item label="Agent" icon="comment-account-outline">
             <b-field label="Number of agents">
-              <b-input type="text" v-model="agents" placeholder="8" style="width:100px"></b-input>
+              <b-input type="number" v-model="agents" placeholder="8" style="width:100px"></b-input>
             </b-field>
             <h2 class="title is-6">Set how agents take customers</h2>
             <div class="field">
@@ -66,7 +70,7 @@
               </b-select>
             </b-field>
             <br>
-            <nuxt-link to="/slideshow">
+            <nuxt-link v-if="settings.office != null" to="/slideshow">
               <button class="button is-primary">
                 <span class="icon">
                   <i class="mdi mdi-file-image mdi-24px"></i>
@@ -77,11 +81,17 @@
           </b-tab-item>
         </b-tabs>
       </section>
-      <footer class="modal-card-foot">
+      <footer v-if="settings.office != null" class="modal-card-foot">
         <button class="button" type="button" @click="$parent.close()">Cancel</button>
-        <button @click.prevent="updateSettings" class="button is-primary">
+        <button @click.prevent="updateSettings('close')" class="button is-primary">
           <b-icon icon="check"></b-icon>
           <span>Save</span>
+        </button>
+      </footer>
+      <footer v-else class="modal-card-foot">
+        <button v-if="activeTab == 3" @click.prevent="updateSettings('no-close')" class="button">
+          <b-icon icon="check"></b-icon>
+          <span>Save and continue</span>
         </button>
       </footer>
     </div>
@@ -135,7 +145,7 @@ export default {
     }, 500)
   },
   methods: {
-    updateSettings() {
+    updateSettings(closeDialogue) {
       const ref = fireDb.collection('settings').doc('general')
       const document = {
         office: this.office,
@@ -146,7 +156,7 @@ export default {
         chosenVoice: this.chosenVoice
       }
       ref.set(document)
-      this.$parent.close()
+      if (closeDialogue == 'close') this.$parent.close()
     }
   }
 }
