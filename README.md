@@ -10,9 +10,7 @@ Realtime queue management system for busy offices - includes customer kiosk, age
 
 # **[DEMO SITE](https://waiting-room-c9c18.firebaseapp.com)**
 
-<p align="center">
-<img  src="https://media.giphy.com/media/UVGN72cOb8PD2pTtmx/giphy.gif"  />
-</p>
+<iframe src='https://gfycat.com/ifr/ImmaterialOddArabianoryx' frameborder='0' scrolling='no' allowfullscreen width='640' height='471'></iframe>
 
 ## Install
 
