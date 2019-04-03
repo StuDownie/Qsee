@@ -25,7 +25,9 @@
     <footer class="footer has-background-light">
       <div class="content has-text-centered">
         <p>
-          <strong>Qsee v1.0</strong> by Stuart Downie.
+          <strong>
+            <a href="https://github.com/StuDownie/Qsee">Qsee v1.0</a>
+          </strong> by Stuart Downie.
         </p>
         <p v-if="$store.state.user != 'logged-out'">
           <button @click="logoutUser" class="button">Logout</button>
