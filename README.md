@@ -11,7 +11,7 @@ Realtime queue management system for busy offices - includes customer kiosk, age
 # **[DEMO SITE](https://waiting-room-c9c18.firebaseapp.com)**
 
 <p align="center">
-<img width="100%" src="https://thumbs.gfycat.com/PracticalWelcomeBarasingha-size_restricted.gif"  />
+<img width="70%" src="https://thumbs.gfycat.com/PracticalWelcomeBarasingha-size_restricted.gif"  />
 </p>
 
 ## Install
@@ -60,7 +60,7 @@ service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
       allow read;
-  		allow write: if request.auth != null;
+      allow write: if request.auth != null;
     }
   }
 }
