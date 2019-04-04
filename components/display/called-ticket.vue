@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1 class="title is-1 spacing" :class="{active: isActive}">Ticket {{ticket}} - {{desk}}</h1>
+    <h1 class="title is-1 spacing" :class="{active: isActive}">{{ticket}} go to {{desk}}</h1>
   </div>
 </template>
 

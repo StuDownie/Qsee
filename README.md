@@ -42,11 +42,11 @@ Connect Firebase Tools to your project
 
 ```bash
 $ firebase login
+# Uses your browser to authorise...
 
-
-# Set your home directory to be called 'dist' when you run this
 
 $ firebase init
+# Set your home directory to be called 'dist' when you run this
 ```
 
 ## Secure Firebase
