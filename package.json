@@ -13,7 +13,6 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
-    "@nuxtjs/axios": "^5.0.0",
     "cross-env": "^5.2.0",
     "firebase": "^5.8.2",
     "nuxt": "^2.0.0",
