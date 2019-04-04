@@ -33,10 +33,15 @@ module.exports = {
     ]
   },
 
+  transition: {
+    name: 'page',
+    mode: 'out-in'
+  },
+
   /*
   ** Customize the progress-bar color
   */
-  loading: { color: '#fff' },
+  loading: false,
 
   /*
   ** Global CSS

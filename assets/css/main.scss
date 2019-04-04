@@ -1,9 +1,17 @@
 // Import Bulma's core
 @import '~bulma/sass/utilities/_all';
 
-// // Import a Google Font
-// @import url('https://fonts.googleapis.com/css?family=Cabin');
-// $family-primary: 'Cabin';
+.page-enter-active,
+.page-leave-active {
+  transition: all 0.2s ease-out;
+}
+.page-enter,
+.page-leave-active {
+  opacity: 0;
+  transform-origin: 50% 50%;
+}
+
+// Custom navbar
 $navbar-height: 1.5rem;
 
 // Set colors
