@@ -9,7 +9,11 @@
         <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>
         <nav class="level">
           <div class="level-item has-text-centered">
-            <button @click="callAgain" class="button is-danger is-large">Call customer again</button>
+            <button
+              @click="callAgain"
+              class="button is-danger is-large"
+              :class="{'is-loading': called}"
+            >Call customer again</button>
           </div>
           <div class="level-item has-text-centered">
             <button @click="newCustomer" class="button is-primary is-large">Take another customer</button>
@@ -94,6 +98,7 @@ export default {
       activeTab: 0,
       tickets: [],
       settings: [],
+      called: false,
       today: new Date().toLocaleDateString('en-GB', {
         day: 'numeric',
         month: 'short',
@@ -173,11 +178,15 @@ export default {
       return
     },
     callAgain() {
+      this.called = true
       const calling = this.timesCustomerCalled + 1
       fireDb
         .collection(this.today)
         .doc(`${this.withCustomer}`)
         .set({ timescalled: calling }, { merge: true })
+      setTimeout(() => {
+        this.called = false
+      }, 2000)
       return
     },
     time(a) {
