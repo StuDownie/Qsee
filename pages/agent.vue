@@ -1,98 +1,80 @@
 <template>
   <div v-if="$store.state.user != 'logged-out'" id="cases">
-    <span v-if="desk == ''">
-      <desk-chooser></desk-chooser>
-    </span>
-    <span v-else>
-      <div v-if="withCustomer > 0" class="section has-text-centered">
-        <h1 class="title is-2">You have a customer</h1>
-        <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>
-        <nav class="level">
-          <div class="level-item has-text-centered">
-            <button
-              @click="callAgain"
-              class="button is-danger is-large"
-              :class="{'is-loading': called}"
-            >Call customer again</button>
-          </div>
-          <div class="level-item has-text-centered">
-            <button @click="newCustomer" class="button is-primary is-large">Take another customer</button>
-          </div>
-        </nav>
-      </div>
-      <div v-if="withCustomer == 0" class="columns">
-        <div class="column">
-          <button class="button is-pulled-right is-small" @click="clearDesk">Change desk</button>
-
-          <next-payornot
-            v-if="settings.takeCustomer == 1"
-            :tickets="tickets"
-            :desk="desk"
-            :today="today"
-          ></next-payornot>
-
-          <next-customer
-            v-if="settings.takeCustomer == 2"
-            :tickets="tickets"
-            :desk="desk"
-            :today="today"
-          ></next-customer>
-
-          <any-customer
-            v-if="settings.takeCustomer == 3"
-            :tickets="tickets"
-            :desk="desk"
-            :today="today"
-          ></any-customer>
+    <div v-if="withCustomer > 0" class="section has-text-centered">
+      <h1 class="title is-2">You have a customer</h1>
+      <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>
+      <nav class="level">
+        <div class="level-item has-text-centered">
+          <button
+            @click="callAgain"
+            class="button is-danger is-large"
+            :class="{'is-loading': called}"
+          >Call customer again</button>
         </div>
-        <!-- *************************** -->
-        <!-- queue summary -->
-        <!-- *************************** -->
-        <div id="queue" class="column has-text-centered">
-          <div class="box">
-            <div>
-              <span id="queueTotal">
-                <h3
-                  class="title is-4"
-                >Queue ({{waiting.length}} waiting | {{atDesks.length}} at desks)</h3>
-              </span>
-            </div>
+        <div class="level-item has-text-centered">
+          <button @click="newCustomer" class="button is-primary is-large">Take another customer</button>
+        </div>
+      </nav>
+    </div>
 
-            <div id="summaryBox">
-              <br>
-              <h3 v-if="waiting.length" class="title is-5 has-text-primary">Waiting customers</h3>
-              <span v-for="ticket in waiting" :key="ticket.id">
-                <span v-if="ticket.state != 'called' && ticket.state != 'seen'">
-                  {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
-                  <br>
-                </span>
+    <div v-if="withCustomer == 0" class="columns">
+      <div class="column">
+        <transition name="page" mode="out-in">
+          <desk-chooser v-if="desk == ''"></desk-chooser>
+          <take-customers
+            v-else
+            :agentCallStyle="settings.takeCustomer"
+            :tickets="tickets"
+            :desk="desk"
+            :today="today"
+          ></take-customers>
+        </transition>
+      </div>
+      <!-- *************************** -->
+      <!-- queue summary -->
+      <!-- *************************** -->
+      <div id="queue" class="column has-text-centered">
+        <div class="box">
+          <div>
+            <span id="queueTotal">
+              <h3
+                class="title is-4"
+              >Queue ({{waiting.length}} waiting | {{atDesks.length}} at desks)</h3>
+            </span>
+          </div>
+
+          <div id="summaryBox">
+            <br>
+            <h3 v-if="waiting.length" class="title is-5 has-text-primary">Waiting customers</h3>
+            <span v-for="ticket in waiting" :key="ticket.id">
+              <span v-if="ticket.state != 'called' && ticket.state != 'seen'">
+                {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
+                <br>
               </span>
-              <br>
-              <h3 v-if="atDesks.length" class="title is-5 has-text-primary">At desks</h3>
-              <span v-for="ticket in atDesks" :key="ticket.id">
-                <span v-if="ticket.state == 'called' && ticket.state != 'seen'">
-                  {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
-                  <br>
-                </span>
+            </span>
+            <br>
+            <h3 v-if="atDesks.length" class="title is-5 has-text-primary">At desks</h3>
+            <span v-for="ticket in atDesks" :key="ticket.id">
+              <span v-if="ticket.state == 'called' && ticket.state != 'seen'">
+                {{ `${ticket.id} (${ticket.topic}) ${time(ticket.printed)}` }}
+                <br>
               </span>
-            </div>
+            </span>
           </div>
         </div>
       </div>
-    </span>
+    </div>
   </div>
 </template>
 
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
-import NextPayornot from '@/components/agent/next-payornot'
-import NextCustomer from '@/components/agent/next-customer'
-import AnyCustomer from '@/components/agent/any-customer'
-import DeskChooser from '@/components/desk-chooser'
+import DeskChooser from '@/components/agent/desk-chooser'
+import TakeCustomers from '@/components/agent/take-customers'
 
 export default {
-  components: { NextPayornot, NextCustomer, AnyCustomer, DeskChooser },
+  components: { DeskChooser, TakeCustomers },
   data() {
     return {
       activeTab: 0,
@@ -194,10 +176,6 @@ export default {
         hour: 'numeric',
         minute: 'numeric'
       })
-    },
-    clearDesk() {
-      this.$store.commit('SET_DESK', '')
-      localStorage.setItem('desk', '')
     }
   }
 }
