@@ -30,7 +30,7 @@ export default {
   },
   firestore() {
     return {
-      tickets: fireDb.collection(this.today).orderBy('id', 'desc'),
+      tickets: fireDb.collection(this.today).orderBy('id'),
       settings: fireDb.collection('settings').doc('general')
     }
   },
