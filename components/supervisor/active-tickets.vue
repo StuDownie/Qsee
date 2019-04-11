@@ -11,6 +11,10 @@
     <div v-for="ticket in content" :key="ticket.id">
       <span class="title is-5">Ticket {{ticket.id}} ({{ticket.topic}})</span>
       <em>{{time(ticket.printed)}}</em>
+      <span
+        v-if="ticket.desk != ''"
+        class="title is-5 is-pulled-right has-text-primary"
+      >{{ticket.desk}}</span>
     </div>
 
     <div v-if="!content.length">No customers</div>
