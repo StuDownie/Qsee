@@ -86,11 +86,11 @@
           <b-table
             :data="todaysTickets"
             :default-sort-direction="defaultSortDirection"
-            default-sort="id"
+            default-sort="printed"
             striped
           >
             <template slot-scope="props">
-              <b-table-column field="id" label="ID" sortable numeric centered>{{ props.row.id }}</b-table-column>
+              <b-table-column field="ticket" label="#" centered>{{ props.row.id }}</b-table-column>
               <b-table-column field="topic" label="Topic" sortable>{{ props.row.topic }}</b-table-column>
               <b-table-column
                 field="desk"
