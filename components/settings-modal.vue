@@ -1,101 +1,96 @@
 <template>
-  <form action>
-    <div class="modal-card" style="width: auto">
-      <header class="modal-card-head" :class="{'has-background-danger' : settings.office == null}">
-        <p
-          v-if="settings.office == null"
-          class="modal-card-title has-text-white"
-        >Set up each tab before using this app</p>
-        <p v-else class="modal-card-title">Settings</p>
-      </header>
-      <section class="modal-card-body">
-        <b-tabs v-model="activeTab" type="is-boxed">
-          <b-tab-item label="General" icon="settings-outline">
-            <b-field label="Office name">
-              <b-input type="text" v-model="office" placeholder="Office name"></b-input>
-            </b-field>
-          </b-tab-item>
+  <div class="modal-card" style="width: auto">
+    <header class="modal-card-head" :class="{'has-background-danger' : settings.office == null}">
+      <p
+        v-if="settings.office == null"
+        class="modal-card-title has-text-white"
+      >Set up each tab before using this app</p>
+      <p v-else class="modal-card-title">Settings</p>
+    </header>
+    <section class="modal-card-body">
+      <b-tabs v-model="activeTab" type="is-boxed">
+        <b-tab-item label="General" icon="settings-outline">
+          <b-field label="Office name">
+            <b-input type="text" v-model="office" placeholder="Office name"></b-input>
+          </b-field>
+        </b-tab-item>
 
-          <b-tab-item label="Kiosk" icon="ticket-confirmation">
-            <b-field label="Greeting">
-              <b-input type="text" v-model="kioskGreeting" placeholder="Wording on kiosk"></b-input>
-            </b-field>
+        <b-tab-item label="Kiosk" icon="ticket-confirmation">
+          <b-field label="Greeting">
+            <b-input type="text" v-model="kioskGreeting" placeholder="Wording on kiosk"></b-input>
+          </b-field>
 
-            <b-field style="width:450px" label="Topics">
-              <b-taginput
-                type="is-primary"
-                v-model="topics"
-                ellipsis
-                icon="label"
-                placeholder="Add a topic"
-              ></b-taginput>
-            </b-field>
-          </b-tab-item>
+          <b-field style="width:450px" label="Topics">
+            <b-taginput
+              type="is-primary"
+              v-model="topics"
+              ellipsis
+              icon="label"
+              placeholder="Add a topic"
+            ></b-taginput>
+          </b-field>
+        </b-tab-item>
 
-          <b-tab-item label="Agent" icon="comment-account-outline">
-            <b-field label="Number of agents">
-              <b-input type="number" v-model="agents" placeholder="8" style="width:100px"></b-input>
-            </b-field>
-            <h2 class="title is-6">Set how agents take customers</h2>
-            <div class="field">
-              <b-radio v-model="takeCustomer" native-value="1">Next "Payment" or next non-payment</b-radio>
-            </div>
-            <div class="field">
-              <b-radio
-                v-model="takeCustomer"
-                native-value="2"
-              >Take next ticket (regardless of topic)</b-radio>
-            </div>
-            <div class="field">
-              <b-radio v-model="takeCustomer" native-value="3">Choose any waiting customer</b-radio>
-            </div>
-          </b-tab-item>
+        <b-tab-item label="Agent" icon="comment-account-outline">
+          <b-field label="Number of agents">
+            <b-input type="number" v-model="agents" placeholder="8" style="width:100px"></b-input>
+          </b-field>
+          <h2 class="title is-6">Set how agents take customers</h2>
+          <div class="field">
+            <b-radio v-model="takeCustomer" native-value="1">Next "Payment" or next non-payment</b-radio>
+          </div>
+          <div class="field">
+            <b-radio v-model="takeCustomer" native-value="2">Take next ticket (regardless of topic)</b-radio>
+          </div>
+          <div class="field">
+            <b-radio v-model="takeCustomer" native-value="3">Choose any waiting customer</b-radio>
+          </div>
+        </b-tab-item>
 
-          <b-tab-item label="Display" icon="monitor">
-            <h2 class="title is-6">Voice</h2>
-            <b-field>
-              <b-select
-                v-model="chosenVoice"
-                placeholder="Choose a voice"
-                icon="voice"
-                name="voice"
-                id="voice"
-                expanded
-              >
-                <option
-                  v-for="(voiceSelect, idx) in voicesUK"
-                  :key="idx"
-                  :value="voiceSelect.name"
-                >{{voiceSelect.name}} ({{voiceSelect.lang}})</option>
-              </b-select>
-            </b-field>
-            <br>
-            <nuxt-link v-if="settings.office != null" to="/slideshow">
-              <button class="button is-primary">
-                <span class="icon">
-                  <i class="mdi mdi-file-image mdi-24px"></i>
-                </span>
-                <span>Update slideshow images</span>
-              </button>
-            </nuxt-link>
-          </b-tab-item>
-        </b-tabs>
-      </section>
-      <footer v-if="settings.office != null" class="modal-card-foot">
-        <button class="button" type="button" @click="$parent.close()">Cancel</button>
-        <button @click.prevent="updateSettings('close')" class="button is-primary">
-          <b-icon icon="check"></b-icon>
-          <span>Save</span>
-        </button>
-      </footer>
-      <footer v-else class="modal-card-foot">
-        <button v-if="activeTab == 3" @click.prevent="updateSettings('no-close')" class="button">
-          <b-icon icon="check"></b-icon>
-          <span>Save and continue</span>
-        </button>
-      </footer>
-    </div>
-  </form>
+        <b-tab-item label="Display" icon="monitor">
+          <h2 class="title is-6">Voice</h2>
+          <b-field>
+            <b-select
+              v-model="chosenVoice"
+              placeholder="Choose a voice"
+              icon="voice"
+              name="voice"
+              id="voice"
+              expanded
+            >
+              <option
+                v-for="(voiceSelect, idx) in voicesUK"
+                :key="idx"
+                :value="voiceSelect.name"
+              >{{voiceSelect.name}} ({{voiceSelect.lang}})</option>
+            </b-select>
+          </b-field>
+          <br>
+          <nuxt-link v-if="settings.office != null" to="/slideshow">
+            <button class="button is-primary">
+              <span class="icon">
+                <i class="mdi mdi-file-image mdi-24px"></i>
+              </span>
+              <span>Update slideshow images</span>
+            </button>
+          </nuxt-link>
+        </b-tab-item>
+      </b-tabs>
+    </section>
+    <footer v-if="settings.office != null" class="modal-card-foot">
+      <button class="button" type="button" @click="$parent.close()">Cancel</button>
+      <button @click.prevent="updateSettings('close')" class="button is-primary">
+        <b-icon icon="check"></b-icon>
+        <span>Save</span>
+      </button>
+    </footer>
+    <footer v-else class="modal-card-foot">
+      <button v-if="activeTab == 3" @click.prevent="updateSettings('no-close')" class="button">
+        <b-icon icon="check"></b-icon>
+        <span>Save and continue</span>
+      </button>
+    </footer>
+  </div>
 </template>
 
 <script>
