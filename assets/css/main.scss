@@ -1,6 +1,7 @@
 // Import Bulma's core
 @import '~bulma/sass/utilities/_all';
 
+// Page transitions
 .page-enter-active,
 .page-leave-active {
   transition: all 0.2s ease-out;
@@ -15,21 +16,12 @@
 $navbar-height: 1.5rem;
 
 // Set colors
+$body-background-color: $light;
 $primary: #653ccb;
 $primary-invert: findColorInvert($primary);
-// $info: rgb(110, 207, 219);
-// $info-invert: findColorInvert($info);
-// $success: rgb(133, 231, 166);
-// $success-invert: findColorInvert($success);
-// $danger: rgb(172, 13, 74);
-// $danger-invert: findColorInvert($danger);
-// $warning: rgb(214, 228, 19);
-// $warning-invert: findColorInvert($warning);
 $twitter: #4099ff;
 $twitter-invert: findColorInvert($twitter);
 $beige-lighter: #eff0eb;
-
-$body-background-color: $light;
 
 // Setup $colors to use as bulma classes (e.g. 'is-twitter')
 $colors: (
@@ -79,10 +71,6 @@ $colors: (
 $link: $primary;
 $link-invert: $primary-invert;
 $link-focus-border: $primary;
-
-// $box-shadow: 0px 10px 40px rgba(56, 56, 56, 0.281);
-// $box-radius: 0px;
-// $control-radius: 0px; // Buttons
 
 // Import Bulma and Buefy styles
 @import '~bulma';
