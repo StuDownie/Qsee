@@ -70,8 +70,8 @@
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
-import DeskChooser from '@/components/agent/desk-chooser'
-import TakeCustomers from '@/components/agent/take-customers'
+const DeskChooser = () => import('@/components/agent/desk-chooser')
+const TakeCustomers = () => import('@/components/agent/take-customers')
 
 export default {
   components: { DeskChooser, TakeCustomers },

@@ -42,8 +42,8 @@
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
-import NavCard from '@/components/nav-card'
-import SettingsModal from '@/components/settings-modal'
+const NavCard = () => import('@/components/nav-card')
+const SettingsModal = () => import('@/components/settings-modal')
 
 export default {
   name: 'HomePage',

@@ -122,9 +122,9 @@
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
-import StatBox from '@/components/supervisor/stat-box'
-import ActiveTickets from '@/components/supervisor/active-tickets'
-import HistoryExport from '@/components/supervisor/history-export'
+const StatBox = () => import('@/components/supervisor/stat-box')
+const ActiveTickets = () => import('@/components/supervisor/active-tickets')
+const HistoryExport = () => import('@/components/supervisor/history-export')
 
 export default {
   components: { StatBox, ActiveTickets, HistoryExport },

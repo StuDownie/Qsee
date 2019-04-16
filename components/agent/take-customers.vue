@@ -8,9 +8,11 @@
 </template>
 
 <script>
-import NextPayornot from '@/components/agent/call-styles/next-payornot'
-import NextCustomer from '@/components/agent/call-styles/next-customer'
-import AnyCustomer from '@/components/agent/call-styles/any-customer'
+const NextPayornot = () =>
+  import('@/components/agent/call-styles/next-payornot')
+const NextCustomer = () =>
+  import('@/components/agent/call-styles/next-customer')
+const AnyCustomer = () => import('@/components/agent/call-styles/any-customer')
 
 export default {
   components: { NextPayornot, NextCustomer, AnyCustomer },

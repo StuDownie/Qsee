@@ -45,8 +45,8 @@
 <script>
 import { fireDb } from '~/plugins/firebase.js'
 
-import NextCustomers from '@/components/display/next-customers'
-import CalledTicket from '@/components/display/called-ticket'
+const NextCustomers = () => import('@/components/display/next-customers')
+const CalledTicket = () => import('@/components/display/called-ticket')
 
 export default {
   layout: 'display',
