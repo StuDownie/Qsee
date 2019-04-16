@@ -41,26 +41,29 @@ $ npm install -g firebase-tools
 Connect Firebase Tools to your project
 
 ```bash
-$ firebase login
 # Uses your browser to authorise...
+$ firebase login
 
 
-$ firebase init
 # Set your home directory to be called 'dist' when you run this
+$ firebase init
 ```
 
 ## Secure Firebase
 
-Login to Firebase console, create email user accounts, then add these rules to lock down the app to logged in users (only a logged in account can create tickets and take customers)
+Go to **Firebase console > authentication** and create some email user accounts to access the app. Then add the below rules, and include the user ID from any accounts you created that you want to modify settings, or upload images to the display screen.
 
 **Database rules**
 
 ```bash
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /{document=**} {
-      allow read;
-      allow write: if request.auth != null;
+    match /settings/{document} {
+		allow write: if request.auth.uid == 'ADMIN USER ID HERE';
+    }
+    match /{collection}/{document=**} {
+		allow read;
+		allow write: if int(collection[0]) - int(collection[0]) == 0 && request.auth != null
     }
   }
 }
@@ -73,7 +76,7 @@ service firebase.storage {
   match /b/{bucket}/o {
     match /{allPaths=**} {
       allow read;
-      allow write: if request.auth != null;
+      allow write: if request.auth.uid == 'ADMIN USER ID HERE';
     }
   }
 }
