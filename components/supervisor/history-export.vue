@@ -57,7 +57,42 @@ export default {
       settings: fireDb.collection('settings').doc('general')
     }
   },
+  computed: {
+    historyExport() {
+      const array = []
+      for (let i = 0; this.history.length > i; i++) {
+        const obj = {
+          id: this.history[i].id,
+          topic: this.history[i].topic,
+          desk: this.history[i].desk,
+          printed: this.JSDateToExcelDate(this.history[i].printed),
+          timescalled: this.history[i].timescalled,
+          seen: this.JSDateToExcelDate(this.history[i].seen),
+          wait: this.duration(this.history[i].wait),
+          completed: this.JSDateToExcelDate(this.history[i].completed),
+          interaction: this.duration(this.history[i].interaction),
+          state: this.history[i].state
+        }
+        array.push(obj)
+      }
+      return array
+    }
+  },
   methods: {
+    JSDateToExcelDate(inDate) {
+      const date = new Date(inDate)
+      const weekday = date.toLocaleDateString('en-US', { weekday: 'short' })
+      const month = date.toLocaleDateString('en-US', { month: 'short' })
+      const day = date.toLocaleDateString('en-US', { day: 'numeric' })
+      const year = date.toLocaleDateString('en-US', { year: 'numeric' })
+      const time = date.toLocaleTimeString('en-US', { hour12: false })
+      return `${weekday} ${month} ${day} ${year} ${time}`
+    },
+    duration(ms) {
+      const mins = Math.floor(ms / 60000)
+      const secs = ((ms % 60000) / 1000).toFixed(0)
+      return mins + ':' + (secs < 10 ? '0' : '') + secs
+    },
     exportReport(startDate, endDate) {
       const dates = []
       const day = -1000 * 60 * 60 * 24
@@ -117,7 +152,7 @@ export default {
     downloadCSV(args) {
       var data, filename, link
       var csv = this.arrayToCSV({
-        data: this.history
+        data: this.historyExport
       })
       if (csv == null) return
       filename = args.filename || 'export.csv'
