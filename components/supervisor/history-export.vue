@@ -70,8 +70,7 @@ export default {
           seen: this.JSDateToExcelDate(this.history[i].seen),
           wait: this.duration(this.history[i].wait),
           completed: this.JSDateToExcelDate(this.history[i].completed),
-          interaction: this.duration(this.history[i].interaction),
-          state: this.history[i].state
+          interaction: this.duration(this.history[i].interaction)
         }
         array.push(obj)
       }
