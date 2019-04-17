@@ -58,12 +58,12 @@ Go to **Firebase console > authentication** and create some email user accounts 
 ```bash
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /settings/{document} {
-		allow write: if request.auth.uid == 'ADMIN USER ID HERE';
+    match /{document=**} {
+			allow write: if request.auth.uid == 'ADMIN USER ID HERE';
     }
     match /{collection}/{document=**} {
-		allow read;
-		allow write: if int(collection[0]) - int(collection[0]) == 0 && request.auth != null
+			allow read;
+			allow write: if int(collection[0]) - int(collection[0]) == 0 && request.auth != null
     }
   }
 }
