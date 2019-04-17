@@ -82,6 +82,13 @@ export default {
         },
         function error(err) {
           console.log(err)
+          t.$dialog.alert({
+            title: 'Error: ' + JSON.parse(err.serverResponse).error.code,
+            message: JSON.parse(err.serverResponse).error.message,
+            type: 'is-danger',
+            hasIcon: true,
+            icon: 'alert-circle'
+          })
         },
         function complete() {
           storageRef.getDownloadURL().then(url => {
@@ -103,6 +110,19 @@ export default {
         .collection('slideshow')
         .doc(name)
         .delete()
+        .then(() => {
+          console.log(`${name} deleted`)
+        })
+        .catch(error => {
+          console.log('Error getting document:', error)
+          this.$dialog.alert({
+            title: 'Error',
+            message: error.code,
+            type: 'is-danger',
+            hasIcon: true,
+            icon: 'alert-circle'
+          })
+        })
     }
   }
 }

@@ -150,7 +150,21 @@ export default {
         takeCustomer: +this.takeCustomer,
         chosenVoice: this.chosenVoice
       }
-      ref.set(document)
+      ref
+        .set(document)
+        .then(() => {
+          console.log(`Settings updated`)
+        })
+        .catch(error => {
+          console.log('Error saving settings:', error)
+          this.$dialog.alert({
+            title: 'Error',
+            message: error.code,
+            type: 'is-danger',
+            hasIcon: true,
+            icon: 'alert-circle'
+          })
+        })
       if (closeDialogue == 'close') this.$parent.close()
     }
   }
