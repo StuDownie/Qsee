@@ -20,7 +20,7 @@
     <div v-if="withCustomer == 0" class="columns">
       <div class="column">
         <transition name="page" mode="out-in">
-          <desk-chooser v-if="desk == ''"></desk-chooser>
+          <desk-chooser v-if="$store.state.desk == ''"></desk-chooser>
           <take-customers
             v-else
             :agentCallStyle="settings.takeCustomer"
