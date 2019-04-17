@@ -103,7 +103,9 @@ export default {
     }
   },
   mounted() {
-    this.$store.commit('SET_DESK', localStorage.getItem('desk'))
+    if (localStorage.getItem('desk') != null) {
+      this.$store.commit('SET_DESK', localStorage.getItem('desk'))
+    }
   },
   computed: {
     desk() {
