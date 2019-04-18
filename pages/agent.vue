@@ -1,5 +1,5 @@
 <template>
-  <div v-if="$store.state.user != 'logged-out'" id="cases">
+  <div v-cloak v-if="$store.state.user != 'logged-out'" id="cases">
     <div v-if="withCustomer > 0" class="section has-text-centered">
       <h1 class="title is-2">You have a customer</h1>
       <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>

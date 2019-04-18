@@ -1,6 +1,10 @@
 // Import Bulma's core
 @import '~bulma/sass/utilities/_all';
 
+[v-cloak] {
+  display: none;
+}
+
 // Page transitions
 .page-enter-active,
 .page-leave-active {

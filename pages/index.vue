@@ -1,5 +1,5 @@
 <template>
-  <section class="section">
+  <section v-cloak v-if="$store.state.user != 'logged-out'" class="section">
     <div class="has-text-right">
       <button class="button is-rounded" @click="settingsModalOn = !settingsModalOn">
         <span class="icon">
@@ -14,7 +14,7 @@
     </b-modal>
     <br>
 
-    <div v-if="$store.state.user != 'logged-out'" class="columns">
+    <div class="columns">
       <div class="column">
         <nav-card
           title="Agent screen"
