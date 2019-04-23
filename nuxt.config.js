@@ -1,7 +1,7 @@
 const pkg = require('./package')
 
 module.exports = {
-  mode: 'static',
+  mode: 'universal',
 
   /*
   ** Headers of the page
@@ -60,12 +60,6 @@ module.exports = {
     // Doc: https://buefy.github.io/#/documentation
     'nuxt-buefy'
   ],
-  /*
-  ** Axios module configuration
-  */
-  axios: {
-    // See https://github.com/nuxt-community/axios-module#options
-  },
 
   /*
   ** Build configuration
