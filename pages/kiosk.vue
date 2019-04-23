@@ -65,10 +65,27 @@ export default {
       var printWindow = window.open('', 'Print', 'height=600,width=800')
       printWindow.document.write(`
           <html>
-          <head><title>Print</title></head>
-          </body>
-          Ticket ${newTicket}
-          </body>
+            <head>
+              <style>
+              .printme {
+                display: block;
+                position: absolute;
+                left: 0px;
+                top: 0px;	
+              }
+              @page {
+                margin-left: 30px;
+                margin-right: 0px;
+                margin-top: 0px;
+                margin-bottom: 0px;
+              }	         
+              </style>
+            </head>
+            </body>
+              <div class="printme">
+                <p style="font-size: 1.24em;"><strong> Ticket ${newTicket} </strong></p>
+              </div>
+            </body>
           </html>
       `)
       printWindow.document.close()
