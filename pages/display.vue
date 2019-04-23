@@ -26,6 +26,7 @@
             :accent="settings.chosenVoice"
           ></called-ticket>
         </span>
+        <h2 class="title is-3" v-if="!called.length">Your ticket will be called here</h2>
       </div>
       <div class="column is-paddingless is-marginless secret">
         <img

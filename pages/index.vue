@@ -72,7 +72,7 @@ export default {
       if (this.settings.office == null) {
         this.settingsModalOn = true
       }
-    }, 500)
+    }, 1000)
   }
 }
 </script>
