@@ -23,18 +23,10 @@ export default {
   watch: {
     called: function() {
       this.speak(`Ticket ${this.ticket} please go to ${this.desk}`)
-      this.isActive = !this.isActive
-      setTimeout(() => {
-        this.isActive = !this.isActive
-      }, 4000)
     }
   },
   mounted() {
-    this.isActive = !this.isActive
     this.speak(`Ticket ${this.ticket} please go to ${this.desk}`)
-    setTimeout(() => {
-      this.isActive = !this.isActive
-    }, 4000)
   },
   methods: {
     speak(words) {
@@ -47,6 +39,12 @@ export default {
       speechMessage.rate = 0.8 // speed of narration (up to 10)
       speechMessage.text = words
       window.speechSynthesis.speak(speechMessage)
+      speechMessage.onstart = () => {
+        this.isActive = !this.isActive
+      }
+      speechMessage.onend = () => {
+        this.isActive = !this.isActive
+      }
     }
   }
 }
