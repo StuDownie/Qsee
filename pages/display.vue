@@ -99,7 +99,7 @@ export default {
         n += 1
       }
       if (n == t.ads.length) n = 0
-    }, 5000)
+    }, 8000)
     setInterval(function() {
       t.clock =
         new Date().toLocaleDateString('en-GB', {
