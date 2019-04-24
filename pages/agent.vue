@@ -1,5 +1,15 @@
 <template>
   <div v-cloak v-if="$store.state.user != 'logged-out'" id="cases">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <nuxt-link to="/">Home</nuxt-link>
+        </li>
+        <li class="is-active">
+          <a href="#" aria-current="page">{{$nuxt.$route.name}}</a>
+        </li>
+      </ul>
+    </nav>
     <div v-if="withCustomer > 0" class="section has-text-centered">
       <h1 class="title is-2">You have a customer</h1>
       <h2 class="title is-4">Ticket {{withCustomer}} ({{withCustomerTopic}})</h2>

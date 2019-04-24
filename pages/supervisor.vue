@@ -1,5 +1,15 @@
 <template>
   <div v-cloak class="container">
+    <nav class="breadcrumb" aria-label="breadcrumbs">
+      <ul>
+        <li>
+          <nuxt-link to="/">Home</nuxt-link>
+        </li>
+        <li class="is-active">
+          <a href="#" aria-current="page">{{$nuxt.$route.name}}</a>
+        </li>
+      </ul>
+    </nav>
     <!-- *************************** -->
     <!-- top summary -->
     <!-- *************************** -->
