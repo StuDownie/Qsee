@@ -9,12 +9,12 @@ Vue.use(VueFire)
 
 if (!firebase.apps.length) {
   firebase.initializeApp({
-    apiKey: 'AIzaSyCCpeqjNtKvip9eWIbWKT2IXBku1ej5qFg',
-    authDomain: 'waiting-room-c9c18.firebaseapp.com',
-    databaseURL: 'https://waiting-room-c9c18.firebaseio.com',
-    projectId: 'waiting-room-c9c18',
-    storageBucket: 'waiting-room-c9c18.appspot.com',
-    messagingSenderId: '691105005784'
+    apiKey: 'YOUR DETAILS FROM FIREBASE HERE',
+    authDomain: 'YOUR DETAILS FROM FIREBASE HERE',
+    databaseURL: 'YOUR DETAILS FROM FIREBASE HERE',
+    projectId: 'YOUR DETAILS FROM FIREBASE HERE',
+    storageBucket: 'YOUR DETAILS FROM FIREBASE HERE',
+    messagingSenderId: 'YOUR DETAILS FROM FIREBASE HERE'
   })
 }
 
