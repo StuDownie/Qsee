@@ -4,11 +4,15 @@
 
 # Qsee
 
-Realtime queue management system for busy offices - includes customer kiosk, agent screen and waiting room display using web speech API
+Realtime queue management system for busy public offices - includes customer kiosk, agent screen and waiting room display using Web Speech API
+
+Print some tickets from the kiosk page, then take those customers from the agent screen - open the display screen in a new tab to see those customers get called
+
+Works best in Chrome (doesn't everything?)
 
 **Static Site built with [Nuxt.js](https://nuxtjs.org/), [Firebase](https://firebase.google.com/) and [Buefy](https://buefy.org/)**
 
-# **[DEMO SITE](https://waiting-room-c9c18.firebaseapp.com)**
+# **[DEMO SITE](https://qsee-web.firebaseapp.com/)**
 
 <p align="center">
 <img width="70%" src="https://i.imgur.com/jikuYpT.gif"  />
@@ -44,14 +48,13 @@ Connect Firebase Tools to your project
 # Uses your browser to authorise...
 $ firebase login
 
-
-# Set your home directory to be called 'dist' when you run this
+# Setup "hosting' and call your home dir "dist" when you run this
 $ firebase init
 ```
 
 ## Secure Firebase
 
-Go to **Firebase console > authentication** and create some email user accounts to access the app. Then add the below rules, and include the user ID from any accounts you created that you want to modify settings, or upload images to the display screen.
+Go to **Firebase console > authentication** and create some email user accounts to access the app. Add the below rules, and include the user ID from any accounts you created that you want to modify settings, or upload images to the display screen.
 
 **Database rules**
 
@@ -59,11 +62,11 @@ Go to **Firebase console > authentication** and create some email user accounts 
 service cloud.firestore {
   match /databases/{database}/documents {
     match /{document=**} {
-			allow write: if request.auth.uid == 'ADMIN USER ID HERE';
+		 allow write: if request.auth.uid == 'ADMIN USER ID HERE';
     }
     match /{collection}/{document=**} {
-			allow read;
-			allow write: if int(collection[0]) - int(collection[0]) == 0 && request.auth != null
+     allow read;
+     allow write: if int(collection[0]) - int(collection[0]) == 0 && request.auth != null
     }
   }
 }
